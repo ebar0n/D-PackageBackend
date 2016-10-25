@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+  redis:
+    extends:
+      file: docker-compose-common.yml
+      service: redis
+
+  postgres:
+    extends:
+      file: docker-compose-common.yml
+      service: postgres
+
+  celerybeat:
+    extends:
+      file: docker-compose-common.yml
+      service: api-develoment
+    command: celery -A api beat -l info
+    depends_on:
+      - redis
+      - postgres
+
+  celeryworker:
+    extends:
+      file: docker-compose-common.yml
+      service: api-develoment
+    command: celery -A api worker -l info
+    depends_on:
+      - redis
+      - postgres
+
+  api:
+    extends:
+      file: docker-compose-common.yml
+      service: api-develoment
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - '8000:8000'
+
+  nginx:
+    extends:
+      file: docker-compose-common.yml
+      service: nginx
+    build: ./compose/nginx/dev
+    ports:
+      - "80:80"

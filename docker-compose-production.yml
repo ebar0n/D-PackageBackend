@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+  redis:
+    extends:
+      file: docker-compose-common.yml
+      service: redis
+    restart: always
+
+  postgres:
+    extends:
+      file: docker-compose-common.yml
+      service: postgres
+    restart: always
+
+  celerybeat:
+    extends:
+      file: docker-compose-common.yml
+      service: api-production
+    command: celery -A api beat -l info
+    depends_on:
+      - redis
+      - postgres
+
+  celeryworker:
+    extends:
+      file: docker-compose-common.yml
+      service: api-production
+    command: celery -A api worker -l info
+    depends_on:
+      - redis
+      - postgres
+
+  api:
+    extends:
+      file: docker-compose-common.yml
+      service: api-production
+    command: uwsgi --emperor uwsgi.ini
+    depends_on:
+      - redis
+      - postgres
+
+  nginx:
+    extends:
+      file: docker-compose-common.yml
+      service: nginx
+    build: ./compose/nginx/pro
+    ports:
+      - "80:80"
+    restart: always

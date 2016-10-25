@@ -1,0 +1,31 @@
+notifications:
+  email: false
+
+sudo: required
+services:
+  - docker
+language: python
+python: 2.7
+
+# addons:
+#  ssh_known_hosts: d-packagebackend.com
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.8.0
+
+before_install:
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+script:
+  - cp env.example .env
+  - docker-compose build
+  - pip install fabric
+  - fab test
+
+# deploy:
+#   provider: script
+#   script: fab deploy_production
+#   on:
+#     branch: master

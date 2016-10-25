@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  redis:
+    image: redis:latest
+
+  postgres:
+    image: postgres:9.5
+    volumes:
+      - ./.data:/var/lib/postgresql/data
+    env_file: ./.env
+    ports:
+      - "15432:5432"
+
+  nginx:
+    env_file: ./.env
+    volumes:
+      - ./public/:/srv/www/public/
+      - ./run:/srv/www/run
+
+  api-develoment:
+    build:
+      context: .
+      dockerfile: Dockerfile-Development
+    env_file: ./.env
+    volumes:
+      - ./api:/srv/www/api
+      - ./public:/srv/www/public
+    working_dir: /srv/www/api
+
+  api-production:
+    build:
+      context: .
+      dockerfile: Dockerfile-Production
+    env_file: ./.env
+    volumes:
+      - ./public:/srv/www/public
+      - ./run:/srv/www/run
+    working_dir: /srv/www/api
+    restart: always
