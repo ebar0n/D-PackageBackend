@@ -6,9 +6,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v1/', include('accounts.urls')),
-    url(r'^static/(.*)$', django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
-    url(r'^media/(.*)$', django.views.static.serve, {'document_root': settings.MEDIA_ROOT}),
+    # url(r'^api/v1/', include('accounts.urls')),
+    # url(r'^static/(.*)$', django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
+    # url(r'^media/(.*)$', django.views.static.serve, {'document_root': settings.MEDIA_ROOT}),
 ]
 
 # if settings.DOCS:

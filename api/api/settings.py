@@ -50,7 +50,10 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
 
     # Apps
-    'accounts',
+    'sw_users',
+    'sw_payments',
+    'sw_shipments',
+    'sw_vehicles',
 ]
 
 MIDDLEWARE = [
@@ -116,7 +119,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'accounts.Account'
+AUTH_USER_MODEL = 'sw_users.UserAccount'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
