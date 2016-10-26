@@ -8,6 +8,7 @@ class ShipmentType(models.Model):
     codename = models.CharField(verbose_name='Codigo', max_length=100)
     icon = models.CharField(verbose_name='Icono', max_length=100)
     insured_value = models.DecimalField(verbose_name='Valor asegurado', max_digits=6, decimal_places=2)
+    price = models.DecimalField(verbose_name='Precio', max_digits=6, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
@@ -33,6 +34,7 @@ class Shipment(models.Model):
     price = models.DecimalField(verbose_name='Precio', max_digits=6, decimal_places=2, default=0)
     reputation = models.OneToOneField('Reputation', verbose_name='Reputation')
 
+    status = models.ForeignKey('Status', verbose_name='Status')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
@@ -49,3 +51,23 @@ class Reputation(models.Model):
     class Meta:
         verbose_name = 'Reputación'
         verbose_name_plural = 'Reputacion'
+
+
+class Metric(models.Model):
+    
+    name = models.CharField(verbose_name='Nombre', max_length=100)
+    value = models.DecimalField(verbose_name='Valor', max_digits=6, decimal_places=2)
+
+    class Meta:
+        verbose_name = 'Metrica'
+        verbose_name_plural = 'Metricas'
+
+
+class Status(models.Model):
+
+    name = models.CharField(verbose_name='Nombre', max_length=100)
+    codename = models.CharField(verbose_name='Codigo', max_length=100)
+
+    class Meta:
+        verbose_name = 'Status'
+        verbose_name_plural = 'Status'

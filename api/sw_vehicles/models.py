@@ -13,6 +13,8 @@ class PackageType(models.Model):
     height_max = models.DecimalField(verbose_name='Altura maximo', max_digits=6, decimal_places=2)
     width_min = models.DecimalField(verbose_name='Anchura minimo', max_digits=6, decimal_places=2)
     width_max = models.DecimalField(verbose_name='Anchura maximo', max_digits=6, decimal_places=2)
+    price = models.DecimalField(verbose_name='Precio', max_digits=6, decimal_places=2)
+
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 

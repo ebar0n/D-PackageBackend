@@ -28,6 +28,7 @@ class UserAccount(AbstractUser):
         null=True,
     )
     check_mail = models.BooleanField(verbose_name='Correo verificado', default=False)
+    stripe_customer = models.CharField(verbose_name='Stripe, customer ID', max_length=64, blank=True)
     token = models.UUIDField(default=uuid.uuid4, editable=False)
     token_expires = models.DateTimeField(null=True, editable=False)
 
