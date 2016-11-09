@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -22,13 +21,14 @@ class PackageType(models.Model):
         verbose_name = 'Tipo de paquete'
         verbose_name_plural = 'Tipos de paquetes'
 
+
 class VehicleCategory(models.Model):
 
     name = models.CharField(verbose_name='Nombre', max_length=100)
     description = models.CharField(verbose_name='Descripción', max_length=100)
     codename = models.CharField(verbose_name='Codigo', max_length=100)
     icon = models.CharField(verbose_name='Icono', max_length=100)
-    packagetype = models.ManyToManyField('PackageType', verbose_name='Tipos de paquete' ,blank=True)
+    packagetype = models.ManyToManyField('PackageType', verbose_name='Tipos de paquete', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 

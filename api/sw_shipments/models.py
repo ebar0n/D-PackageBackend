@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -44,7 +43,7 @@ class Shipment(models.Model):
 
 
 class Reputation(models.Model):
-    
+
     commentary = models.CharField(verbose_name='Comentario', max_length=100)
     score = models.IntegerField(verbose_name='Puntuacion')
 
@@ -54,7 +53,7 @@ class Reputation(models.Model):
 
 
 class Metric(models.Model):
-    
+
     name = models.CharField(verbose_name='Nombre', max_length=100)
     value = models.DecimalField(verbose_name='Valor', max_digits=6, decimal_places=2)
 
