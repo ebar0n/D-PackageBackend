@@ -34,10 +34,16 @@ class Migration(migrations.Migration):
                 ('holder', models.CharField(max_length=100, verbose_name='Titular')),
                 ('identity_card', models.CharField(max_length=8, verbose_name='Cedula de identidad')),
                 ('number', models.CharField(max_length=20, verbose_name='Numero')),
-                ('type', models.CharField(choices=[['Ah', 'Ahorro'], ['Co', 'Corriente']], max_length=10, verbose_name='Tipo')),
+                ('type', models.CharField(
+                    choices=[['Ah', 'Ahorro'], ['Co', 'Corriente']],
+                    max_length=10,
+                    verbose_name='Tipo')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('bank', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_payments.Bank', verbose_name='Banco')),
+                ('bank', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='sw_payments.Bank',
+                    verbose_name='Banco')),
             ],
             options={
                 'verbose_name': 'Cuenta bancaria',

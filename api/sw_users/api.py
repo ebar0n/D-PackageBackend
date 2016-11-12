@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from .serializers import ClientAccountSerializer, ServiceAccountSerializer
 from .models import ClientAccount, ServiceAccount
+from .serializers import ClientAccountSerializer, ServiceAccountSerializer
 
 
 class ClientAccountViewSet(viewsets.ModelViewSet):

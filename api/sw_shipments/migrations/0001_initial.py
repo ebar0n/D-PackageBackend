@@ -36,7 +36,11 @@ class Migration(migrations.Migration):
                 ('receiver', models.CharField(max_length=100, verbose_name='Receptor')),
                 ('origin', models.CharField(max_length=100, verbose_name='Origen')),
                 ('destination', models.CharField(max_length=100, verbose_name='Destino')),
-                ('insured_value', models.DecimalField(decimal_places=2, default=0, max_digits=6, verbose_name='Valor asegurado')),
+                ('insured_value', models.DecimalField(
+                    decimal_places=2,
+                    default=0,
+                    max_digits=6,
+                    verbose_name='Valor asegurado')),
                 ('price', models.DecimalField(decimal_places=2, default=0, max_digits=6, verbose_name='Precio')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),

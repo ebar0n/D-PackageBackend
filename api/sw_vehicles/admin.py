@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import PackageType, VehicleCategory, Model
+
+from .models import Model, PackageType, VehicleCategory
 
 
 @admin.register(PackageType)

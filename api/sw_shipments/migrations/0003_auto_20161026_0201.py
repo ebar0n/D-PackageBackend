@@ -46,7 +46,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='shipment',
             name='status',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.Status', verbose_name='Status'),
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_shipments.Status',
+                verbose_name='Status'),
             preserve_default=False,
         ),
     ]

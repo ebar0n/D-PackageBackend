@@ -1,9 +1,8 @@
 from rest_framework import serializers
-
-from .models import ClientAccount, UserAccount, ServiceAccount
 from sw_vehicles.models import Vehicle
-
 from sw_vehicles.serializers import VehicleSerializer
+
+from .models import ClientAccount, ServiceAccount, UserAccount
 
 
 class UserAccountSerializer(serializers.ModelSerializer):

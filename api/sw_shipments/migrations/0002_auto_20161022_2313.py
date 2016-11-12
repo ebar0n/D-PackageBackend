@@ -20,26 +20,42 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='shipment',
             name='client',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_users.ClientAccount', verbose_name='Cliente'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_users.ClientAccount',
+                verbose_name='Cliente'),
         ),
         migrations.AddField(
             model_name='shipment',
             name='packagetype',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.PackageType', verbose_name='Tipo de paquete'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_vehicles.PackageType',
+                verbose_name='Tipo de paquete'),
         ),
         migrations.AddField(
             model_name='shipment',
             name='reputation',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.Reputation', verbose_name='Reputation'),
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_shipments.Reputation',
+                verbose_name='Reputation'),
         ),
         migrations.AddField(
             model_name='shipment',
             name='service',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='sw_users.ServiceAccount', verbose_name='Prestador de servicio'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_users.ServiceAccount',
+                verbose_name='Prestador de servicio'),
         ),
         migrations.AddField(
             model_name='shipment',
             name='shipmenttype',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.ShipmentType', verbose_name='Tipo de envio'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_shipments.ShipmentType',
+                verbose_name='Tipo de envio'),
         ),
     ]

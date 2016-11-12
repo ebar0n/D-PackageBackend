@@ -74,7 +74,10 @@ class Migration(migrations.Migration):
                 ('icon', models.CharField(max_length=100, verbose_name='Icono')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('packagetype', models.ManyToManyField(blank=True, to='sw_vehicles.PackageType', verbose_name='Tipos de paquete')),
+                ('packagetype', models.ManyToManyField(
+                    blank=True,
+                    to='sw_vehicles.PackageType',
+                    verbose_name='Tipos de paquete')),
             ],
             options={
                 'verbose_name': 'Categoria de vehiculo',
@@ -84,11 +87,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='vehicle',
             name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.VehicleCategory', verbose_name='Categoria'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_vehicles.VehicleCategory',
+                verbose_name='Categoria'),
         ),
         migrations.AddField(
             model_name='vehicle',
             name='model',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.Model', verbose_name='Modelo'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='sw_vehicles.Model',
+                verbose_name='Modelo'),
         ),
     ]
