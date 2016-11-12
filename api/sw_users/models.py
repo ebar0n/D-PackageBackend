@@ -16,7 +16,7 @@ class UserAccount(AbstractUser):
         - check_mail (BooleanField): Booleano que registra si la cuenta tiene
           el correo verificado.
         - token (UUIDField): Token para validaciones unicas.
-        - token_expires (DateTimeField): Fecha de expiracion para el tokent.
+        - token_expires (DateTimeField): Fecha de expiracion para el token.
     """
     client = models.OneToOneField(
         'ClientAccount',
@@ -77,7 +77,7 @@ class ServiceAccount(models.Model):
     vehicle = models.OneToOneField('sw_vehicles.Vehicle', verbose_name='Vehículo')
     identity_check = models.BooleanField(verbose_name='Identidad verificada', default=False)
     bankaccount = models.OneToOneField('sw_payments.BankAccount', verbose_name='Cuenta bancaria', null=True)
-    balance = models.DecimalField(verbose_name='Saldo', max_digits=6, decimal_places=2)
+    balance = models.DecimalField(verbose_name='Saldo', max_digits=6, decimal_places=2, default=0)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
