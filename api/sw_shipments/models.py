@@ -3,7 +3,7 @@ from django.db import models
 
 class ShipmentType(models.Model):
     name = models.CharField(verbose_name='Nombre', max_length=100)
-    description = models.CharField(verbose_name='Descripción', max_length=100)
+    description = models.TextField(verbose_name='Descripción', max_length=200)
     codename = models.CharField(verbose_name='Codigo', max_length=100)
     icon = models.CharField(verbose_name='Icono', max_length=100)
     insured_value = models.DecimalField(verbose_name='Valor asegurado', max_digits=6, decimal_places=2)
@@ -45,7 +45,7 @@ class Shipment(models.Model):
 class Reputation(models.Model):
 
     commentary = models.CharField(verbose_name='Comentario', max_length=100)
-    score = models.IntegerField(verbose_name='Puntuacion')
+    score = models.PositiveSmallIntegerField(verbose_name='Puntuacion')
 
     class Meta:
         verbose_name = 'Reputación'

@@ -75,6 +75,7 @@ target/
 
 # celery beat schedule file
 api/celerybeat-schedule.db
+api/celerybeat.pid
 
 # dotenv
 .env

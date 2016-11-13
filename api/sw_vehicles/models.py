@@ -1,4 +1,6 @@
 from django.db import models
+from colorful.fields import RGBColorField
+from django.contrib.postgres.fields import IntegerRangeField
 
 
 class PackageType(models.Model):
@@ -6,12 +8,9 @@ class PackageType(models.Model):
     name = models.CharField(verbose_name='Nombre', max_length=100)
     description = models.CharField(verbose_name='Descripción', max_length=100)
     codename = models.CharField(verbose_name='Codigo', max_length=100)
-    weight_min = models.DecimalField(verbose_name='Peso minimo', max_digits=6, decimal_places=2)
-    weight_max = models.DecimalField(verbose_name='Peso maximo', max_digits=6, decimal_places=2)
-    height_min = models.DecimalField(verbose_name='Altura minimo', max_digits=6, decimal_places=2)
-    height_max = models.DecimalField(verbose_name='Altura maximo', max_digits=6, decimal_places=2)
-    width_min = models.DecimalField(verbose_name='Anchura minimo', max_digits=6, decimal_places=2)
-    width_max = models.DecimalField(verbose_name='Anchura maximo', max_digits=6, decimal_places=2)
+    weight = IntegerRangeField(verbose_name='Peso')
+    height = IntegerRangeField(verbose_name='Altura')
+    width = IntegerRangeField(verbose_name='Anchura')
     price = models.DecimalField(verbose_name='Precio', max_digits=6, decimal_places=2)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
@@ -25,7 +24,7 @@ class PackageType(models.Model):
 class VehicleCategory(models.Model):
 
     name = models.CharField(verbose_name='Nombre', max_length=100)
-    description = models.CharField(verbose_name='Descripción', max_length=100)
+    description = models.TextField(verbose_name='Descripción', max_length=200)
     codename = models.CharField(verbose_name='Codigo', max_length=100)
     icon = models.CharField(verbose_name='Icono', max_length=100)
     packagetype = models.ManyToManyField('PackageType', verbose_name='Tipos de paquete', blank=True)
@@ -53,9 +52,8 @@ class Vehicle(models.Model):
     license_plate = models.CharField(verbose_name='Nombre', max_length=100)
     model = models.ForeignKey('Model', verbose_name='Modelo')
     category = models.ForeignKey('VehicleCategory', verbose_name='Categoria')
+    color = RGBColorField()
     photo1 = models.ImageField(verbose_name='Foto', upload_to='vehiculePhoto', blank=True)
-    photo2 = models.ImageField(verbose_name='Foto', upload_to='vehiculePhoto', blank=True)
-    photo3 = models.ImageField(verbose_name='Foto', upload_to='vehiculePhoto', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
