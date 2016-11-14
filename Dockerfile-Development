@@ -8,3 +8,4 @@ COPY ./requirements/base.pip /requirements/base.pip
 COPY ./requirements/development.pip /requirements/development.pip
 
 RUN pip install -r /requirements/development.pip
+RUN pip install django-colorful
