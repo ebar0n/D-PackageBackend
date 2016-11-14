@@ -1,6 +1,6 @@
-from django.db import models
 from colorful.fields import RGBColorField
 from django.contrib.postgres.fields import IntegerRangeField
+from django.db import models
 
 
 class PackageType(models.Model):
