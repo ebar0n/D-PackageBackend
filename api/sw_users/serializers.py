@@ -9,7 +9,6 @@ class UserAccountSerializer(serializers.ModelSerializer):
     """
         UserAccount Serializer
     """
-    confirm_password = serializers.CharField(allow_blank=False, write_only=True)
 
     class Meta:
         model = UserAccount
@@ -18,15 +17,8 @@ class UserAccountSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'email',
-            'password',
-            'confirm_password',)
+            'password')
         extra_kwargs = {'password': {'write_only': True}}
-
-    def validate(self, data):
-        if data['password'] != data.pop('confirm_password'):
-            raise serializers.ValidationError(
-                {'password': 'Passwords do not match!'})
-        return data
 
 
 class ClientAccountSerializer(serializers.ModelSerializer):
@@ -85,3 +77,11 @@ class ServiceAccountSerializer(serializers.ModelSerializer):
         user.save()
 
         return service
+
+
+class LoginSerializer(serializers.Serializer):
+    """
+    Login Serializer
+    """
+    username = serializers.CharField(max_length=20)
+    password = serializers.CharField(max_length=128)
