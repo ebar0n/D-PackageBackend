@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import permissions, status, views, viewsets
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 from .models import ClientAccount, ServiceAccount
@@ -43,11 +44,13 @@ class LoginView(views.APIView):
         if user:
             if user.is_active:
                 login(request, user)
+                token = Token.objects.create(user=user)
                 if user.client:
                     serialized_account = ClientAccountSerializer(user.client)
                 else:
                     serialized_account = ServiceAccountSerializer(user.service)
                 data = serialized_account.data
+                data['token'] = token.key
                 return Response(data)
             else:
                 return Response({
