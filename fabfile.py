@@ -130,3 +130,18 @@ def test():
     """
     with cd(HOME_DIRECTORY):
         local('docker-compose run --rm -e TEST=true api py.test')
+
+
+def enable_swap():
+    """ to enable swap on a server. JIC."""
+    run('dd if=/dev/zero of=/swapfile bs=1024 count=1024k')
+    run('mkswap /swapfile')
+    run('swapon /swapfile')
+    run('swapon -s')
+    run('echo 10 | sudo tee /proc/sys/vm/swappiness')
+    run(('if grep -Fxq "/swapfile       none    swap    sw      0       0 " /etc/fstab > /dev/null;'
+         'then echo ya tiene la linea; else echo "/swapfile       none    swap    sw      0       0 "'
+         ' >> /etc/fstab; fi'))
+    run('echo vm.swappiness = 10 | sudo tee -a /etc/sysctl.conf')
+    run('chown root:root /swapfile')
+    run('chmod 0600 /swapfile')
