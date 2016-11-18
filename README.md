@@ -102,7 +102,7 @@
 
         docker-compose -f docker-compose-production.yml up -d
 
-1. Visit API [api.d-packagebackend.com/](http://api.d-packagebackend.com/)
+1. Visit API [api.d-packagebackend.edwarbaron.me/](http://api.d-packagebackend.edwarbaron.me/)
 
 ### Automatic deploy using `fabric`
 

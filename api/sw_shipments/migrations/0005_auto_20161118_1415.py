@@ -3,9 +3,9 @@
 from __future__ import unicode_literals
 
 import django.contrib.gis.db.models.fields
-from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -34,7 +34,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='metric',
             name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now, verbose_name='created at'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now, verbose_name='created at'),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -45,7 +46,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='reputation',
             name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now, verbose_name='created at'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now, verbose_name='created at'),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -56,7 +58,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='status',
             name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now, verbose_name='created at'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now, verbose_name='created at'),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -87,7 +90,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='shipment',
             name='client',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_users.ClientAccount', verbose_name='client'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='sw_users.ClientAccount', verbose_name='client'),
         ),
         migrations.AlterField(
             model_name='shipment',
@@ -112,7 +116,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='shipment',
             name='packagetype',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.PackageType', verbose_name='package type'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.PackageType',
+                verbose_name='package type'),
         ),
         migrations.AlterField(
             model_name='shipment',
@@ -142,22 +148,28 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='shipment',
             name='reputation',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.Reputation', verbose_name='reputation'),
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.Reputation', verbose_name='reputation'),
         ),
         migrations.AlterField(
             model_name='shipment',
             name='service',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='sw_users.ServiceAccount', verbose_name='service provider'),
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.CASCADE, to='sw_users.ServiceAccount',
+                verbose_name='service provider'),
         ),
         migrations.AlterField(
             model_name='shipment',
             name='shipmenttype',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.ShipmentType', verbose_name='shipment type'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.ShipmentType',
+                verbose_name='shipment type'),
         ),
         migrations.AlterField(
             model_name='shipment',
             name='status',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.Status', verbose_name='estado'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='sw_shipments.Status', verbose_name='estado'),
         ),
         migrations.AlterField(
             model_name='shipment',

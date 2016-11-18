@@ -107,7 +107,7 @@ def deploy_dev():
     deploy()
 
 
-@hosts('voluntario180.com')
+@hosts('api.d-packagebackend.edwarbaron.me')
 def deploy_production(branch='master'):
     """
     Deploy project by branch
@@ -132,6 +132,7 @@ def test():
         local('docker-compose run --rm -e TEST=true api py.test')
 
 
+@hosts('api.d-packagebackend.edwarbaron.me')
 def enable_swap():
     """ to enable swap on a server. JIC."""
     run('dd if=/dev/zero of=/swapfile bs=1024 count=1024k')

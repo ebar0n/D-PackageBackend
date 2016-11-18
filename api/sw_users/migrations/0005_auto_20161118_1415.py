@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 import django.contrib.gis.db.models.fields
-from django.db import migrations, models
 import django.db.models.deletion
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -34,7 +34,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='serviceaccount',
             name='last_location_point',
-            field=django.contrib.gis.db.models.fields.PointField(blank=True, null=True, srid=4326, verbose_name='last location point'),
+            field=django.contrib.gis.db.models.fields.PointField(
+                blank=True, null=True, srid=4326, verbose_name='last location point'),
         ),
         migrations.AlterField(
             model_name='clientaccount',
@@ -69,12 +70,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='useraccount',
             name='client',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='sw_users.ClientAccount', verbose_name='client'),
+            field=models.OneToOneField(
+                null=True, on_delete=django.db.models.deletion.CASCADE, to='sw_users.ClientAccount',
+                verbose_name='client'),
         ),
         migrations.AlterField(
             model_name='useraccount',
             name='service',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='sw_users.ServiceAccount', verbose_name='service provider'),
+            field=models.OneToOneField(
+                null=True, on_delete=django.db.models.deletion.CASCADE, to='sw_users.ServiceAccount',
+                verbose_name='service provider'),
         ),
         migrations.AlterField(
             model_name='useraccount',

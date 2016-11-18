@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 import django.contrib.postgres.fields.ranges
-from django.db import migrations, models
 import django.db.models.deletion
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -93,7 +93,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='vehicle',
             name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.VehicleCategory', verbose_name='category'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.VehicleCategory',
+                verbose_name='category'),
         ),
         migrations.AlterField(
             model_name='vehicle',
@@ -108,7 +110,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='vehicle',
             name='model',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.Model', verbose_name='model'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='sw_vehicles.Model', verbose_name='model'),
         ),
         migrations.AlterField(
             model_name='vehicle',
