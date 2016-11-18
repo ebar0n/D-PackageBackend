@@ -39,6 +39,7 @@ services:
       - postgres
     ports:
       - '8000:8000'
+    working_dir: /srv/www/api
 
   nginx:
     extends:

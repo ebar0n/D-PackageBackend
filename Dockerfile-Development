@@ -1,11 +1,42 @@
 FROM python:3.5
 
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/gis/lib
+ENV PATH=$PATH:/app/gis/bin
+
 RUN apt-get update && apt-get install -y postgresql-client \
-    gcc gettext \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+    gcc gettext libpcre3 libpcre3-dev
+
+RUN mkdir /gissrc &&  mkdir -p /app/gis/lib
+WORKDIR /gissrc
+
+# SWIG
+RUN wget -O swig-3.0.10.tar.gz "http://downloads.sourceforge.net/project/swig/swig/swig-3.0.10/swig-3.0.10.tar.gz?r=&ts=1466804726&use_mirror=heanet" \
+    && tar xzf swig-3.0.10.tar.gz && cd swig-3.0.10 && \
+    ./configure --quiet && make --quiet && make --quiet install && \
+    cd .. && rm -Rf swig-3.0.10.tar.gz
+
+# GEOS library installation
+RUN curl -s http://download.osgeo.org/geos/geos-3.4.2.tar.bz2 | \
+	tar xj && cd geos-3.4.2 && ./configure --quiet && make --quiet && make --quiet install && \
+	 cd .. && rm -Rf geos-3.4.2*
+
+# GDAL library installation
+RUN curl -s http://download.osgeo.org/gdal/1.11.2/gdal-1.11.2.tar.gz | \
+	tar xz && cd gdal-1.11.2 && ./configure --quiet && make --quiet && make --quiet install && cd .. \
+	&& rm -Rf gdal-1.11.2
+
+# PROJ.4 library installation
+RUN wget http://download.osgeo.org/proj/proj-4.9.1.tar.gz && \
+    wget http://download.osgeo.org/proj/proj-datumgrid-1.5.tar.gz && \
+	tar xzf proj-4.9.1.tar.gz && cd proj-4.9.1/nad && \
+    tar xzf ../../proj-datumgrid-1.5.tar.gz && cd .. && ./configure --quiet && \
+	make --quiet && make --quiet install && cd .. && rm -Rf proj-*
+
+RUN echo '/usr/local/lib' >> /etc/ld.so.conf.d/local-lib.conf && ldconfig
+
+# Requirements
 
 COPY ./requirements/base.pip /requirements/base.pip
 COPY ./requirements/development.pip /requirements/development.pip
 
 RUN pip install -r /requirements/development.pip
-RUN pip install django-colorful

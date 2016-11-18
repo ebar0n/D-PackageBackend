@@ -4,7 +4,7 @@ from rest_framework import routers
 from .api import ClientAccountViewSet, LoginView, LogoutView, ServiceAccountViewSet
 
 # Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
+router = routers.SimpleRouter()
 router.register(r'client', ClientAccountViewSet)
 router.register(r'service', ServiceAccountViewSet)
 

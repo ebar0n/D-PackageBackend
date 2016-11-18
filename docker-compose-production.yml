@@ -39,6 +39,7 @@ services:
     depends_on:
       - redis
       - postgres
+    working_dir: /srv/www/api
 
   nginx:
     extends:

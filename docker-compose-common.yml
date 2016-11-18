@@ -5,7 +5,7 @@ services:
     image: redis:latest
 
   postgres:
-    image: postgres:9.5
+    image: mdillon/postgis:9.5
     volumes:
       - ./.data:/var/lib/postgresql/data
     env_file: ./.env
@@ -26,7 +26,6 @@ services:
     volumes:
       - ./api:/srv/www/api
       - ./public:/srv/www/public
-    working_dir: /srv/www/api
 
   api-production:
     build:
@@ -36,5 +35,4 @@ services:
     volumes:
       - ./public:/srv/www/public
       - ./run:/srv/www/run
-    working_dir: /srv/www/api
     restart: always

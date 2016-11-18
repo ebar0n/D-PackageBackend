@@ -12,5 +12,5 @@ if settings.DOCS:
     from rest_framework_swagger.views import get_swagger_view
     swagger_view = get_swagger_view(title='API')
     urlpatterns += [
-        url(r'^docs/', swagger_view),
+        url(r'^$', swagger_view),
     ]

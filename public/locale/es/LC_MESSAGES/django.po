@@ -7,42 +7,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-24 23:49+0000\n"
+"POT-Creation-Date: 2016-11-18 07:04+0000\n"
 "PO-Revision-Date: 2016-03-10 15:40+GMT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "personal info"
-msgstr "información personal"
+msgid "English"
+msgstr "Inglés"
 
-msgid "permissions info"
-msgstr "información de permisos"
+msgid "Spanish"
+msgstr "Español"
 
-msgid "dates info"
-msgstr "información de fechas"
+msgid "Payments"
+msgstr "Pagos"
 
-msgid "accounts"
-msgstr "cuentas"
+msgid "Saving"
+msgstr "Ahorro"
 
-msgid "Users must have an email address"
-msgstr "Los usuarios deben tener una dirección de correo electrónico"
+msgid "Common"
+msgstr "Corriente"
 
-msgid "first name"
+msgid "name"
 msgstr "nombre"
-
-msgid "last name"
-msgstr "apellido"
-
-msgid "is active"
-msgstr "está activo"
-
-msgid "is staff"
-msgstr "es admin"
-
-msgid "can login to the django admin."
-msgstr "puede iniciar sesión en el sitio administrativo"
 
 msgid "created at"
 msgstr "creado a las"
@@ -50,11 +38,173 @@ msgstr "creado a las"
 msgid "updated at"
 msgstr "actualizado a las"
 
-msgid "account"
-msgstr "cuenta"
+msgid "bank"
+msgstr "banco"
 
-msgid "English"
-msgstr "Inglés"
+msgid "banks"
+msgstr "bancos"
 
-msgid "Spanish"
-msgstr "Español"
+msgid "holder"
+msgstr "titular"
+
+msgid "identity card"
+msgstr "cédula de identidad"
+
+msgid "number"
+msgstr "número"
+
+msgid "type"
+msgstr "tipo"
+
+msgid "bank account"
+msgstr "cuenta bancaria"
+
+msgid "bank accounts"
+msgstr "cuentas bancarias"
+
+msgid "Shipments"
+msgstr "envíos"
+
+msgid "description"
+msgstr "descripción"
+
+msgid "codename"
+msgstr "código"
+
+msgid "icon"
+msgstr "icon"
+
+msgid "insured value"
+msgstr "valor asegurado"
+
+msgid "price"
+msgstr "precio"
+
+msgid "shipment type"
+msgstr "tipo de envío"
+
+msgid "shipment types"
+msgstr "tipos de envíos"
+
+msgid "client"
+msgstr "cliente"
+
+msgid "service provider"
+msgstr "proveedor de servicio"
+
+msgid "package type"
+msgstr "yipo de paquete"
+
+msgid "photo 1"
+msgstr "foto 1"
+
+msgid "photo 2"
+msgstr "foto 2"
+
+msgid "photo 3"
+msgstr "foto 3"
+
+msgid "tags"
+msgstr "etiquetas"
+
+msgid "receiver"
+msgstr "receptor"
+
+msgid "origin"
+msgstr "origen"
+
+msgid "destination"
+msgstr "destino"
+
+msgid "reputation"
+msgstr "reputación"
+
+msgid "status"
+msgstr "status"
+
+msgid "shipment"
+msgstr "envío"
+
+msgid "commentary"
+msgstr "comentario"
+
+msgid "score"
+msgstr "puntuación"
+
+msgid "value"
+msgstr "valor"
+
+msgid "metric"
+msgstr "métrica"
+
+msgid "metrics"
+msgstr "métricas"
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "check mail"
+msgstr "correo chekeado"
+
+msgid "stripe, customer ID"
+msgstr "stripe, customer ID"
+
+msgid "user"
+msgstr "usuario"
+
+msgid "users"
+msgstr "usuarios"
+
+msgid "phone"
+msgstr "teléfono"
+
+msgid "clients"
+msgstr "clientes"
+
+msgid "last location point"
+msgstr "último punto de ubicación"
+
+msgid "last location date"
+msgstr "última fecha de ubicación"
+
+msgid "services provider"
+msgstr "proveedor de servicios"
+
+msgid "vehicles"
+msgstr vehículos""
+
+msgid "weight"
+msgstr "peso"
+
+msgid "height"
+msgstr "altura"
+
+msgid "width"
+msgstr "ancho"
+
+msgid "package types"
+msgstr "tipos de paquetes"
+
+msgid "vehicle category"
+msgstr "categoría de vehículo"
+
+msgid "vehicle categories"
+msgstr "categorías de vehículos"
+
+msgid "vehicle model"
+msgstr "modelo de vehículo"
+
+msgid "vehicle models"
+msgstr "modelos de vehículos"
+
+msgid "license plate"
+msgstr "placa"
+
+msgid "model"
+msgstr "modelo"
+
+msgid "category"
+msgstr "categoria"
+
+msgid "vehicle"
+msgstr "vehículo"
