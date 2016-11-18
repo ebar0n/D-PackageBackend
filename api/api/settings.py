@@ -102,6 +102,7 @@ if env.bool('SSL'):
 DATABASES = {
     'default': env.db('DATABASE_URL')
 }
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 # Celery
 TEST = env.bool('TEST')

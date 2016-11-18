@@ -1,6 +1,6 @@
 from colorful.fields import RGBColorField
-from django.contrib.postgres.fields import IntegerRangeField
 from django.contrib.gis.db import models
+from django.contrib.postgres.fields import IntegerRangeField
 from django.utils.translation import ugettext as _
 
 
@@ -45,7 +45,6 @@ class Model(models.Model):
     class Meta:
         verbose_name = _('vehicle model')
         verbose_name_plural = _('vehicle models')
-
 
 
 class Vehicle(models.Model):
