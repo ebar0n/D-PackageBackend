@@ -2,7 +2,6 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-
 from sw_users.models import ClientAccount, ServiceAccount
 from sw_users.serializers import ClientAccountSerializer, LoginSerializer, ServiceAccountSerializer
 

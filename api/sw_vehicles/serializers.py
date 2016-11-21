@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from sw_vehicles.models import Vehicle
 
 

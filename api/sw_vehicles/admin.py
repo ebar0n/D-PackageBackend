@@ -1,5 +1,4 @@
 from django.contrib.gis import admin
-
 from sw_vehicles.models import Model, PackageType, VehicleCategory
 
 

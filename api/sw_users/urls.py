@@ -1,6 +1,5 @@
 from django.conf.urls import include, url
 from rest_framework import routers
-
 from sw_users.api import ClientAccountViewSet, LoginView, LogoutView, ServiceAccountViewSet
 
 # Routers provide an easy way of automatically determining the URL conf.

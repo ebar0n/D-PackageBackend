@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y postgresql-client \
 # Requirements
 
 COPY ./requirements/base.pip /requirements/base.pip
-COPY ./requirements/development.pip /requirements/development.pip
+RUN pip install -r /requirements/base.pip
 
+COPY ./requirements/development.pip /requirements/development.pip
 RUN pip install -r /requirements/development.pip
