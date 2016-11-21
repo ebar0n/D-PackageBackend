@@ -128,8 +128,8 @@ def deploy_production(branch='master'):
     with cd(HOME_DIRECTORY):
         local('docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .')
         local('docker push ebar0n/d-packagebackend:dev')
-        local('docker build -t ebar0n/d-packagebackend -f Dockerfile-Production .')
-        local('docker push ebar0n/d-packagebackend')
+        local('docker build -t ebar0n/d-packagebackend:pro -f Dockerfile-Production .')
+        local('docker push ebar0n/d-packagebackend:pro')
     deploy(branch=branch, yml='-f docker-compose-production.yml')
 
 

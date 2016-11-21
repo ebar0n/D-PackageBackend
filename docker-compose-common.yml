@@ -33,7 +33,7 @@ services:
       - ./public:/srv/www/public
 
   api-production:
-    image: ebar0n/d-packagebackend
+    image: ebar0n/d-packagebackend:pro
     env_file: ./.env
     volumes:
       - ./api:/srv/www/api
