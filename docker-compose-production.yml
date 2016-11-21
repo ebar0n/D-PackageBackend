@@ -45,7 +45,3 @@ services:
     extends:
       file: docker-compose-common.yml
       service: nginx
-    build: ./compose/nginx/pro
-    ports:
-      - "80:80"
-    restart: always

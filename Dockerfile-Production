@@ -40,5 +40,3 @@ COPY ./requirements/base.pip /requirements/base.pip
 COPY ./requirements/production.pip /requirements/production.pip
 
 RUN pip install -r /requirements/production.pip
-
-COPY ./api /srv/www/api

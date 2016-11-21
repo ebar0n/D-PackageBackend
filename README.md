@@ -118,6 +118,4 @@
 
 1. Other taks
 
-    1. fab deploy_dev
-    1. fab deploy_production
     1. fab test

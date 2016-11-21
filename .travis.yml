@@ -23,8 +23,8 @@ install:
 
 script:
   - cp env.example .env
-  - docker-compose build
-  - fab test
+  - fab ci_test
+  - fab deploy_production
 
 deploy:
   provider: script

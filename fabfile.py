@@ -10,9 +10,14 @@ else:
     from fabric.api import run
     HOME_DIRECTORY = '/root/D-PackageBackend'
     env.user = 'root'
-    env.password = os.environ.get('PASSWORD', None)
+    env.hosts = ['api.d-packagebackend.edwarbaron.me']
+    env.password = os.environ.get('SERVER_PASSWORD', None)
     if not env.password:
         env.key_filename = '~/.ssh/id_rsa.pub'
+
+BRANCH = os.environ.get('TRAVIS_BRANCH', 'master')
+DOCKER_LOGIN = 'ebar0n'
+DOCKER_PASSWORD = 'python6#GuJq'
 
 
 def pull(branch='master'):
@@ -46,8 +51,10 @@ def build(branch='master', yml=''):
     """
     if not LOCAL:
         pull(branch=branch)
+    run('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
     with cd(HOME_DIRECTORY):
         run('docker-compose {} build'.format(yml))
+        run('docker-compose {} pull'.format(yml))
 
 
 def load(branch='master', yml=''):
@@ -118,6 +125,12 @@ def deploy_production(branch='master'):
     Example:
         $ fab nginx:branch='master'
     """
+    with cd(HOME_DIRECTORY):
+        local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
+        local('docker build -t ebar0n/d-packagebackend -f Dockerfile-Development .')
+        local('docker push -t ebar0n/d-packagebackend:dev')
+        local('docker build -t ebar0n/d-packagebackend -f Dockerfile-Production .')
+        local('docker push -t ebar0n/d-packagebackend')
     deploy(branch=branch, yml='-f docker-compose-production.yml')
 
 
@@ -128,6 +141,23 @@ def test():
     Example:
         $ fab test
     """
+    with cd(HOME_DIRECTORY):
+        local('docker-compose run --rm -e TEST=true api py.test')
+
+
+def ci_test():
+    """
+    Test by branch
+
+    Example:
+        $ fab test
+    """
+    with cd(HOME_DIRECTORY):
+        local('docker pull -t ebar0n/d-packagebackend:{}'.format(BRANCH))
+        local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
+        local('docker push -t ebar0n/d-packagebackend:{}'.format(BRANCH))
+        local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev')
+    load(branch=BRANCH)
     with cd(HOME_DIRECTORY):
         local('docker-compose run --rm -e TEST=true api py.test')
 
