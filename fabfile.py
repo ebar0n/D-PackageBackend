@@ -153,14 +153,12 @@ def ci_test():
         $ fab ci_test
     """
     local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
-    local('docker pull python:3.5')
     local('docker pull ebar0n/d-packagebackend:dev')
     with settings(warn_only=True):
         _exec = local('docker pull ebar0n/d-packagebackend:{}'.format(BRANCH))
         if _exec.return_code == 1:
             local('docker tag ebar0n/d-packagebackend:dev ebar0n/d-packagebackend:{}'.format(BRANCH))
 
-    local('docker images')
     with cd(HOME_DIRECTORY):
         local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
         local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
