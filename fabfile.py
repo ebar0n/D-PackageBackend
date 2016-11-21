@@ -129,6 +129,8 @@ def deploy_production(branch='master'):
         local('docker push ebar0n/d-packagebackend:dev')
         local('docker build -t ebar0n/d-packagebackend:pro -f Dockerfile-Production .')
         local('docker push ebar0n/d-packagebackend:pro')
+        local('docker tag ebar0n/d-packagebackend:pro ebar0n/d-packagebackend:latest'.format(BRANCH))
+        local('docker push ebar0n/d-packagebackend:latest')
     deploy(branch=branch, yml='-f docker-compose-production.yml')
 
 
@@ -158,9 +160,11 @@ def ci_test():
         if _exec.return_code == 1:
             local('docker tag ebar0n/d-packagebackend:dev ebar0n/d-packagebackend:{}'.format(BRANCH))
 
+    local('docker images')
     with cd(HOME_DIRECTORY):
         local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
-        local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
+        if (BRANCH != 'master'):
+            local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
         local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev'.format(BRANCH))
 
     with cd(HOME_DIRECTORY):
