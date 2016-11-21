@@ -37,7 +37,6 @@ install:
 script:
   - cp env.example .env
   - fab ci_test
-  - fab deploy_production
 
 deploy:
   provider: script

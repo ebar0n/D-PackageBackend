@@ -1,6 +1,6 @@
 import os
 
-from fabric.api import cd, env, hosts, local, settings
+from fabric.api import cd, env, local, settings
 
 LOCAL = any(['deploy_dev' in task for task in env.tasks])
 if LOCAL:
@@ -113,7 +113,6 @@ def deploy_dev():
     deploy()
 
 
-@hosts('api.d-packagebackend.edwarbaron.me')
 def deploy_production(branch='master'):
     """
     Deploy project by branch
@@ -168,7 +167,6 @@ def ci_test():
         local('docker-compose run --rm -e TEST=true api py.test')
 
 
-@hosts('api.d-packagebackend.edwarbaron.me')
 def enable_swap():
     """ to enable swap on a server. JIC."""
     run('dd if=/dev/zero of=/swapfile bs=1024 count=1024k')
