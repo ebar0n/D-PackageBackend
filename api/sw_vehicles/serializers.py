@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Vehicle
+from sw_vehicles.models import Vehicle
 
 
 class VehicleSerializer(serializers.ModelSerializer):
@@ -8,9 +8,5 @@ class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
         fields = (
-            'license_plate',
-            'model',
-            'category',
-            'photo1',
-            'photo2',
-            'photo3')
+            'license_plate', 'model', 'category', 'service', 'color', 'photo1'
+        )

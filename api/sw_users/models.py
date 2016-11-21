@@ -1,7 +1,8 @@
 import uuid
 
 from django.contrib.auth.models import AbstractUser
-from django.db import models
+from django.contrib.gis.db import models
+from django.utils.translation import ugettext as _
 
 
 class UserAccount(AbstractUser):
@@ -20,27 +21,27 @@ class UserAccount(AbstractUser):
     """
     client = models.OneToOneField(
         'ClientAccount',
-        verbose_name='Cliente',
-        null=True,
+        verbose_name=_('client'),
+        null=True, editable=False
     )
     service = models.OneToOneField(
         'ServiceAccount',
-        verbose_name='Prestador de servicio',
-        null=True,
+        verbose_name=_('service provider'),
+        null=True, editable=False
     )
-    check_mail = models.BooleanField(verbose_name='Correo verificado', default=False)
-    stripe_customer = models.CharField(verbose_name='Stripe, customer ID', max_length=64, blank=True)
+    check_mail = models.BooleanField(verbose_name=_('check mail'), default=False)
+    stripe_customer = models.CharField(verbose_name=_('stripe, customer ID'), max_length=64, blank=True)
     token = models.UUIDField(default=uuid.uuid4, editable=False)
     token_expires = models.DateTimeField(null=True, editable=False)
 
     class Meta:
-        verbose_name = 'Usuario'
-        verbose_name_plural = 'Usuarios'
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
 
     def get_account(self):
-        if self.client:
+        if self.client_id:
             return self.client
-        elif self.service:
+        elif self.service_id:
             return self.service
 
 
@@ -54,13 +55,13 @@ class ClientAccount(models.Model):
         - updated_at (DateTimeField): Fecha de actualización del registro
     """
 
-    phone = models.CharField(verbose_name='Telefóno', max_length=11)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    phone = models.CharField(verbose_name=_('phone'), max_length=11)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(verbose_name=_('updated at'), auto_now=True, editable=False)
 
     class Meta:
-        verbose_name = 'Cliente'
-        verbose_name_plural = 'Clientes'
+        verbose_name = _('client')
+        verbose_name_plural = _('clients')
 
 
 class ServiceAccount(models.Model):
@@ -78,9 +79,11 @@ class ServiceAccount(models.Model):
     identity_check = models.BooleanField(verbose_name='Identidad verificada', default=False)
     bankaccount = models.OneToOneField('sw_payments.BankAccount', verbose_name='Cuenta bancaria', null=True)
     balance = models.DecimalField(verbose_name='Saldo', max_digits=6, decimal_places=4, default=0)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    last_location_point = models.PointField(verbose_name=_('last location point'), null=True, blank=True)
+    last_location_date = models.DateTimeField(verbose_name=_('last location date'), blank=True, null=True)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(verbose_name=_('updated at'), auto_now=True, editable=False)
 
     class Meta:
-        verbose_name = 'Prestador de servicio'
-        verbose_name_plural = 'Prestadores de servicio'
+        verbose_name = _('service provider')
+        verbose_name_plural = _('services provider')

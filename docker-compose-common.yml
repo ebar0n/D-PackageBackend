@@ -5,7 +5,7 @@ services:
     image: redis:latest
 
   postgres:
-    image: postgres:9.5
+    image: mdillon/postgis:9.5
     volumes:
       - ./.data:/var/lib/postgresql/data
     env_file: ./.env
@@ -13,28 +13,30 @@ services:
       - "15432:5432"
 
   nginx:
+    build: ./compose/nginx
     env_file: ./.env
+    ports:
+      - "80:80"
     volumes:
       - ./public/:/srv/www/public/
       - ./run:/srv/www/run
+    restart: always
 
   api-develoment:
-    build:
-      context: .
-      dockerfile: Dockerfile-Development
+    image: ebar0n/d-packagebackend:dev
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-Development
     env_file: ./.env
     volumes:
       - ./api:/srv/www/api
       - ./public:/srv/www/public
-    working_dir: /srv/www/api
 
   api-production:
-    build:
-      context: .
-      dockerfile: Dockerfile-Production
+    image: ebar0n/d-packagebackend:pro
     env_file: ./.env
     volumes:
+      - ./api:/srv/www/api
       - ./public:/srv/www/public
       - ./run:/srv/www/run
-    working_dir: /srv/www/api
     restart: always

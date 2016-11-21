@@ -1,6 +1,7 @@
 from django.apps import AppConfig
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 
 class Sw_UsersConfig(AppConfig):
-    name = _('Accounts')
+    name = 'sw_users'
+    verbose_name = _('Users')

@@ -7,8 +7,8 @@ services:
 language: python
 python: 2.7
 
-# addons:
-#  ssh_known_hosts: d-packagebackend.com
+addons:
+  ssh_known_hosts: api.d-packagebackend.edwarbaron.me
 
 env:
   DOCKER_COMPOSE_VERSION: 1.8.0
@@ -18,14 +18,15 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
+install:
+  - pip install fabric
+
 script:
   - cp env.example .env
-  - docker-compose build
-  - pip install fabric
-  - fab test
+  - fab ci_test
 
-# deploy:
-#   provider: script
-#   script: fab deploy_production
-#   on:
-#     branch: master
+deploy:
+  provider: script
+  script: fab deploy_production
+  on:
+    branch: master

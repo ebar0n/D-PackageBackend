@@ -40,16 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.gis',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_extensions',
+    'sorl.thumbnail',
+    'colorful',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
-    'sorl.thumbnail',
-    'colorful',
 
     # Apps
     'sw_users',
@@ -102,6 +104,7 @@ if env.bool('SSL'):
 DATABASES = {
     'default': env.db('DATABASE_URL')
 }
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 # Celery
 TEST = env.bool('TEST')
@@ -142,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'es'
 LANGUAGES = [
     ('en', _('English')),
     ('es', _('Spanish')),
@@ -188,3 +191,5 @@ if not DOCS:
 
 LOGIN_URL = '/admin/login/'
 LOGOUT_URL = '/admin/logout/'
+
+MAPS_GOOGLE_MAPS_API_KEY = env('MAPS_GOOGLE_MAPS_API_KEY')

@@ -1,8 +1,7 @@
 from rest_framework import serializers
+from sw_users.models import ClientAccount, ServiceAccount, UserAccount
 from sw_vehicles.models import Vehicle
 from sw_vehicles.serializers import VehicleSerializer
-
-from .models import ClientAccount, ServiceAccount, UserAccount
 
 
 class UserAccountSerializer(serializers.ModelSerializer):
@@ -13,11 +12,8 @@ class UserAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
         fields = (
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'password')
+            'username', 'first_name', 'last_name', 'email', 'password', 'date_join'
+        )
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -54,15 +50,9 @@ class ServiceAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceAccount
         fields = (
-            'useraccount',
-            'phone',
-            'photo',
-            'birthdate',
-            'address',
-            'identity_card',
-            'driver_license',
-            'vehicle'
-            )
+            'useraccount', 'phone', 'photo', 'birthdate',
+            'address', 'identity_card', 'driver_license', 'vehicle'
+        )
 
     def create(self, validated_data):
         data_user = validated_data.pop('useraccount')

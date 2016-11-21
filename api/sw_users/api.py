@@ -3,8 +3,8 @@ from rest_framework import permissions, status, views, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-from .models import ClientAccount, ServiceAccount
-from .serializers import ClientAccountSerializer, LoginSerializer, ServiceAccountSerializer
+from sw_users.models import ClientAccount, ServiceAccount
+from sw_users.serializers import ClientAccountSerializer, LoginSerializer, ServiceAccountSerializer
 
 
 class ClientAccountViewSet(viewsets.ModelViewSet):

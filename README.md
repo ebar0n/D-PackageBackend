@@ -91,6 +91,9 @@
 
         docker-compose -f docker-compose-production.yml build
 
+
+> Note (build single image): docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .
+
 1. Initialize
 
         docker-compose -f docker-compose-production.yml up -d postgres
@@ -102,7 +105,7 @@
 
         docker-compose -f docker-compose-production.yml up -d
 
-1. Visit API [api.d-packagebackend.com/](http://api.d-packagebackend.com/)
+1. Visit API [api.d-packagebackend.edwarbaron.me/](http://api.d-packagebackend.edwarbaron.me/)
 
 ### Automatic deploy using `fabric`
 
@@ -118,6 +121,4 @@
 
 1. Other taks
 
-    1. fab deploy_dev
-    1. fab deploy_production
     1. fab test
