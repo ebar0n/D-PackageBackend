@@ -91,6 +91,9 @@
 
         docker-compose -f docker-compose-production.yml build
 
+
+> Note (build single image): docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .
+
 1. Initialize
 
         docker-compose -f docker-compose-production.yml up -d postgres

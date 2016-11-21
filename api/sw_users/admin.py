@@ -1,5 +1,4 @@
 from django.contrib.gis import admin
-
 from sw_users import models
 
 
@@ -9,10 +8,10 @@ class AccountInline(admin.StackedInline):
 
 
 @admin.register(models.ClientAccount)
-class SpeakerAdmin(admin.ModelAdmin):
+class ClientAdmin(admin.ModelAdmin):
     inlines = (AccountInline,)
 
 
 @admin.register(models.ServiceAccount)
-class ReviewerAdmin(admin.ModelAdmin):
+class ServiceAdmin(admin.OSMGeoAdmin):
     inlines = (AccountInline,)

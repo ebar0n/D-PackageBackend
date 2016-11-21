@@ -44,13 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_extensions',
+    'sorl.thumbnail',
+    'colorful',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
-    'sorl.thumbnail',
-    'colorful',
 
     # Apps
     'sw_users',
@@ -190,3 +191,5 @@ if not DOCS:
 
 LOGIN_URL = '/admin/login/'
 LOGOUT_URL = '/admin/logout/'
+
+MAPS_GOOGLE_MAPS_API_KEY = env('MAPS_GOOGLE_MAPS_API_KEY')
