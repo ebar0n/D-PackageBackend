@@ -1,8 +1,5 @@
 FROM python:3.5
 
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/gis/lib
-ENV PATH=$PATH:/app/gis/bin
-
 RUN apt-get update && apt-get install -y postgresql-client \
     gcc gettext libpcre3 libpcre3-dev
 
