@@ -1,6 +1,6 @@
 import os
 
-from fabric.api import cd, env, hosts, local
+from fabric.api import cd, env, hosts, local, settings
 
 LOCAL = any(['deploy_dev' in task for task in env.tasks])
 if LOCAL:
@@ -31,10 +31,9 @@ def pull(branch='master'):
         $ fab pull:branch='master'
     """
     with cd(HOME_DIRECTORY):
-        run('git checkout .')
         run('git fetch --all')
-        run('git checkout {}'.format(branch))
         run('git pull origin {}'.format(branch))
+        run('git checkout {}'.format(branch))
 
 
 def build(branch='master', yml=''):
@@ -125,12 +124,12 @@ def deploy_production(branch='master'):
     Example:
         $ fab nginx:branch='master'
     """
+    local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
     with cd(HOME_DIRECTORY):
-        local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
-        local('docker build -t ebar0n/d-packagebackend -f Dockerfile-Development .')
-        local('docker push -t ebar0n/d-packagebackend:dev')
+        local('docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .')
+        local('docker push ebar0n/d-packagebackend:dev')
         local('docker build -t ebar0n/d-packagebackend -f Dockerfile-Production .')
-        local('docker push -t ebar0n/d-packagebackend')
+        local('docker push ebar0n/d-packagebackend')
     deploy(branch=branch, yml='-f docker-compose-production.yml')
 
 
@@ -150,14 +149,20 @@ def ci_test():
     Test by branch
 
     Example:
-        $ fab test
+        $ fab ci_test
     """
+    local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
+    local('docker pull ebar0n/d-packagebackend:dev')
+    with settings(warn_only=True):
+        _exec = local('docker pull ebar0n/d-packagebackend:{}'.format(BRANCH))
+        if _exec.return_code == 1:
+            local('docker tag ebar0n/d-packagebackend:dev ebar0n/d-packagebackend:{}'.format(BRANCH))
+
     with cd(HOME_DIRECTORY):
-        local('docker pull -t ebar0n/d-packagebackend:{}'.format(BRANCH))
         local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
-        local('docker push -t ebar0n/d-packagebackend:{}'.format(BRANCH))
-        local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev')
-    load(branch=BRANCH)
+        local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
+        local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev'.format(BRANCH))
+
     with cd(HOME_DIRECTORY):
         local('docker-compose run --rm -e TEST=true api py.test')
 
