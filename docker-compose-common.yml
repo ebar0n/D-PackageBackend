@@ -24,9 +24,9 @@ services:
 
   api-develoment:
     image: ebar0n/d-packagebackend:dev
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile-Development
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-Development
     env_file: ./.env
     volumes:
       - ./api:/srv/www/api

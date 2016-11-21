@@ -163,8 +163,7 @@ def ci_test():
     local('docker images')
     with cd(HOME_DIRECTORY):
         local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
-        if (BRANCH != 'master'):
-            local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
+        local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
         local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev'.format(BRANCH))
 
     with cd(HOME_DIRECTORY):
