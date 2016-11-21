@@ -22,12 +22,12 @@ class UserAccount(AbstractUser):
     client = models.OneToOneField(
         'ClientAccount',
         verbose_name=_('client'),
-        null=True,
+        null=True, editable=False
     )
     service = models.OneToOneField(
         'ServiceAccount',
         verbose_name=_('service provider'),
-        null=True,
+        null=True, editable=False
     )
     check_mail = models.BooleanField(verbose_name=_('check mail'), default=False)
     stripe_customer = models.CharField(verbose_name=_('stripe, customer ID'), max_length=64, blank=True)

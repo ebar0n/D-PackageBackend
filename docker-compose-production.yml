@@ -13,24 +13,6 @@ services:
       service: postgres
     restart: always
 
-  celerybeat:
-    extends:
-      file: docker-compose-common.yml
-      service: api-production
-    command: celery -A api beat -l info
-    depends_on:
-      - redis
-      - postgres
-
-  celeryworker:
-    extends:
-      file: docker-compose-common.yml
-      service: api-production
-    command: celery -A api worker -l info
-    depends_on:
-      - redis
-      - postgres
-
   api:
     extends:
       file: docker-compose-common.yml
@@ -40,6 +22,26 @@ services:
       - redis
       - postgres
     working_dir: /srv/www/api
+
+  celerybeat:
+    extends:
+      file: docker-compose-common.yml
+      service: api-production
+    command: celery -A api beat -l info
+    depends_on:
+      - redis
+      - postgres
+      - api
+
+  celeryworker:
+    extends:
+      file: docker-compose-common.yml
+      service: api-production
+    command: celery -A api worker -l info
+    depends_on:
+      - redis
+      - postgres
+      - api
 
   nginx:
     extends:
