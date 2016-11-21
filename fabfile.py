@@ -152,6 +152,7 @@ def ci_test():
         $ fab ci_test
     """
     local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
+    local('docker pull python:3.5')
     local('docker pull ebar0n/d-packagebackend:dev')
     with settings(warn_only=True):
         _exec = local('docker pull ebar0n/d-packagebackend:{}'.format(BRANCH))
