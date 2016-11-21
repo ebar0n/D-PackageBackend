@@ -11,7 +11,7 @@ if not settings.configured:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api.settings')
 
 # set the default Django settings module for the 'celery' program.
-app = Celery('api', include=['utils.tasks.emails'])
+app = Celery('api', include=[])
 
 app.config_from_object('api.celeryconfig')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)

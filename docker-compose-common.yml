@@ -31,12 +31,14 @@ services:
     volumes:
       - ./api:/srv/www/api
       - ./public:/srv/www/public
+    working_dir: /srv/www/api
 
   api-production:
     image: ebar0n/d-packagebackend:pro
     env_file: ./.env
+    restart: always
     volumes:
       - ./api:/srv/www/api
       - ./public:/srv/www/public
       - ./run:/srv/www/run
-    restart: always
+    working_dir: /srv/www/api
