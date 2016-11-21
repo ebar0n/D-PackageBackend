@@ -1,6 +1,7 @@
 FROM ebar0n/python-3.5-gis
 
-RUN install -y postgresql-client gettext
+RUN apt-get update && apt-get install -y postgresql-client \
+    gettext --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # Requirements
 
