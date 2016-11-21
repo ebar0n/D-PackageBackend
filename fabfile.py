@@ -77,9 +77,9 @@ def load(branch='master', yml=''):
             'api python manage.py collectstatic --noinput',
             'api python manage.py compilemessages',
         ]
-        run('docker-compose up -d postgres')
+        run('docker-compose {} up -d postgres'.format(yml))
         for command in commands:
-            run('docker-compose run --rm {}'.format(command))
+            run('docker-compose {} run --rm {}'.format(yml, command))
 
 
 def deploy(branch='master', yml=''):
