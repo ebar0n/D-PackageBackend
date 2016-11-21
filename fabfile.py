@@ -1,6 +1,6 @@
 import os
 
-from fabric.api import cd, env, local, settings
+from fabric.api import cd, env, local
 
 LOCAL = any(['deploy_dev' in task for task in env.tasks])
 if LOCAL:
@@ -153,11 +153,6 @@ def ci_test():
         $ fab ci_test
     """
     local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
-    local('docker pull ebar0n/d-packagebackend:dev')
-    with settings(warn_only=True):
-        _exec = local('docker pull ebar0n/d-packagebackend:{}'.format(BRANCH))
-        if _exec.return_code == 1:
-            local('docker tag ebar0n/d-packagebackend:dev ebar0n/d-packagebackend:{}'.format(BRANCH))
 
     with cd(HOME_DIRECTORY):
         local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
