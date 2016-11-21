@@ -11,7 +11,7 @@ else:
     HOME_DIRECTORY = '/root/D-PackageBackend'
     env.user = 'root'
     env.hosts = ['api.d-packagebackend.edwarbaron.me']
-    env.password = os.environ.get('SERVER_PASSWORD', None)
+    env.password = os.environ.get('PASSWORD', None)
     if not env.password:
         env.key_filename = '~/.ssh/id_rsa.pub'
 
