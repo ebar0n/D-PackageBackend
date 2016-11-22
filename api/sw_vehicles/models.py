@@ -23,6 +23,7 @@ class PackageType(models.Model):
     def __str__(self):
         return self.name
 
+
 class VehicleCategory(models.Model):
 
     name = models.CharField(verbose_name=_('name'), max_length=100, unique=True)
@@ -51,6 +52,9 @@ class Model(models.Model):
         verbose_name = _('vehicle model')
         verbose_name_plural = _('vehicle models')
 
+    def __str__(self):
+        return self.name
+
 
 class Vehicle(models.Model):
 
@@ -65,3 +69,6 @@ class Vehicle(models.Model):
     class Meta:
         verbose_name = _('vehicle')
         verbose_name_plural = _('vehicles')
+
+    def __str__(self):
+        return self.license_plate
