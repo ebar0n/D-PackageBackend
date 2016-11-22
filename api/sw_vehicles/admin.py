@@ -9,7 +9,11 @@ class PackageTypeAdmin(admin.ModelAdmin):
 
 @admin.register(VehicleCategory)
 class VehicleCategoryAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('packagetype',)
+    list_display = ('name', 'codename')
+    list_filter = ('packagetype',)
+    readonly_fields = ('created_at', 'updated_at')
+    search_fields = ('name', 'codename')
 
 
 @admin.register(Model)

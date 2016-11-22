@@ -23,9 +23,9 @@ class PackageType(models.Model):
 
 class VehicleCategory(models.Model):
 
-    name = models.CharField(verbose_name=_('name'), max_length=100)
+    name = models.CharField(verbose_name=_('name'), max_length=100, unique=True)
     description = models.TextField(verbose_name=_('description'), max_length=200)
-    codename = models.CharField(verbose_name=_('codename'), max_length=100)
+    codename = models.CharField(verbose_name=_('codename'), max_length=100, unique=True)
     icon = models.CharField(verbose_name=_('icon'), max_length=100)
     packagetype = models.ManyToManyField('PackageType', verbose_name=_('package type'), blank=True)
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, editable=False)
