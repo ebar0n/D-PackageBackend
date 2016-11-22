@@ -7,14 +7,12 @@ from rest_framework import permissions, status, views, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
-
-from utils.tasks.emails import send_mail
-
 from sw_users.models import ClientAccount, ServiceAccount, UserAccount
 from sw_users.serializers import (
     ClientAccountSerializer, ForgotPasswordSerializer, LoginSerializer, ResetPasswordChangeSerializer,
     ServiceAccountSerializer, UserAccountSerializer,
 )
+from utils.tasks.emails import send_mail
 
 
 class ClientAccountViewSet(viewsets.ModelViewSet):
