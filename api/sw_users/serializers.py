@@ -75,3 +75,13 @@ class LoginSerializer(serializers.Serializer):
     """
     username = serializers.CharField(max_length=20)
     password = serializers.CharField(max_length=128)
+
+
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class ResetPasswordChangeSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    token = serializers.CharField(max_length=40)
+    password = serializers.CharField(max_length=128)

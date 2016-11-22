@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     'sw_payments',
     'sw_shipments',
     'sw_vehicles',
+
+    # Utils
+    'utils',
 ]
 
 MIDDLEWARE = [
