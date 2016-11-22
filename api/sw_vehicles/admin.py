@@ -21,4 +21,6 @@ class VehicleCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Model)
 class ModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name',)
+    readonly_fields = ('created_at', 'updated_at')
+    search_fields = ('name',)
