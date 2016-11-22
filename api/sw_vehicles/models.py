@@ -6,9 +6,9 @@ from django.utils.translation import ugettext as _
 
 class PackageType(models.Model):
 
-    name = models.CharField(verbose_name=_('name'), max_length=100)
+    name = models.CharField(verbose_name=_('name'), max_length=100, unique=True)
     description = models.CharField(verbose_name=_('description'), max_length=100)
-    codename = models.CharField(verbose_name=_('codename'), max_length=100)
+    codename = models.CharField(verbose_name=_('codename'), max_length=100, unique=True)
     weight = IntegerRangeField(verbose_name=_('weight'))
     height = IntegerRangeField(verbose_name=_('height'))
     width = IntegerRangeField(verbose_name=_('width'))
