@@ -20,6 +20,8 @@ class PackageType(models.Model):
         verbose_name = _('package type')
         verbose_name_plural = _('package types')
 
+    def __str__(self):
+        return self.name
 
 class VehicleCategory(models.Model):
 
@@ -34,6 +36,9 @@ class VehicleCategory(models.Model):
     class Meta:
         verbose_name = _('vehicle category')
         verbose_name_plural = _('vehicle categories')
+
+    def __str__(self):
+        return self.name
 
 
 class Model(models.Model):
