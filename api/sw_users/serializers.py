@@ -87,9 +87,9 @@ class ResetPasswordChangeSerializer(serializers.Serializer):
     password = serializers.CharField(min_length=8, max_length=128)
 
 
-class ChanguePasswordSerializer(serializers.Serializer):
+class ChangePasswordSerializer(serializers.Serializer):
     """
-    ChanguePassword Serializer
+    ChangePassword Serializer
 
     """
     old_password = serializers.CharField(max_length=128)

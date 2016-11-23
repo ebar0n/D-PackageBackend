@@ -12,7 +12,7 @@ from sw_users import mixins
 from sw_users.models import ClientAccount, ServiceAccount, UserAccount
 from sw_users.permissions import IsAdminOrAccountOwner
 from sw_users.serializers import (
-    ChanguePasswordSerializer, ClientAccountSerializer, ForgotPasswordSerializer, LoginSerializer,
+    ChangePasswordSerializer, ClientAccountSerializer, ForgotPasswordSerializer, LoginSerializer,
     ResetPasswordChangeSerializer, ServiceAccountSerializer, UserAccountSerializer,
 )
 from utils.tasks.emails import send_mail
@@ -180,7 +180,7 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
 
         """
         user = self.get_object()
-        serializer = ChanguePasswordSerializer(
+        serializer = ChangePasswordSerializer(
             data=request.data
         )
         if not serializer.is_valid():
