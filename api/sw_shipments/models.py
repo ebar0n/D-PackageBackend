@@ -3,9 +3,9 @@ from django.utils.translation import ugettext as _
 
 
 class ShipmentType(models.Model):
-    name = models.CharField(verbose_name=_('name'), max_length=100)
+    name = models.CharField(verbose_name=_('name'), max_length=100, unique=True)
     description = models.TextField(verbose_name=_('description'), max_length=200)
-    codename = models.CharField(verbose_name=_('codename'), max_length=100)
+    codename = models.CharField(verbose_name=_('codename'), max_length=100, unique=True)
     icon = models.CharField(verbose_name=_('icon'), max_length=100)
     insured_value = models.DecimalField(verbose_name=_('insured value'), max_digits=6, decimal_places=2)
     price = models.DecimalField(verbose_name=_('price'), max_digits=6, decimal_places=2)
@@ -15,6 +15,9 @@ class ShipmentType(models.Model):
     class Meta:
         verbose_name = _('shipment type')
         verbose_name_plural = _('shipment types')
+
+    def __str__(self):
+        return self.name
 
 
 class Shipment(models.Model):
