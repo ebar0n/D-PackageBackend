@@ -142,7 +142,7 @@ def test():
         $ fab test
     """
     with cd(HOME_DIRECTORY):
-        local('docker-compose run --rm -e TEST=true api py.test')
+        local('docker-compose run --rm --no-deps -e TEST=true api py.test')
 
 
 def ci_test():
@@ -164,7 +164,7 @@ def ci_test():
                 local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev'.format(BRANCH))
 
     with cd(HOME_DIRECTORY):
-        local('docker-compose run --rm -e TEST=true api py.test')
+        local('docker-compose run --rm --no-deps -e TEST=true api py.test')
 
 
 def enable_swap():
