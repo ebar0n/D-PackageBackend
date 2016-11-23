@@ -12,9 +12,15 @@ class UserAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
         fields = (
-            'username', 'first_name', 'last_name', 'email', 'password'
+            'first_name', 'last_name', 'email', 'password'
         )
         extra_kwargs = {'password': {'write_only': True}}
+
+    def validate(self, data):
+        if len(data['password']) < 8:
+            raise serializers.ValidationError(
+                {'password': 'Contrase#a debe tener una longitud minima de 8 caracteres'})
+        return data
 
 
 class ClientAccountSerializer(serializers.ModelSerializer):
@@ -73,7 +79,7 @@ class LoginSerializer(serializers.Serializer):
     """
     Login Serializer
     """
-    username = serializers.CharField(max_length=20)
+    username = serializers.CharField(max_length=128)
     password = serializers.CharField(max_length=128)
 
 
