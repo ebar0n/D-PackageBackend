@@ -125,12 +125,16 @@ def deploy_production(branch='master'):
     """
     local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
     with cd(HOME_DIRECTORY):
-        local('docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .')
-        local('docker push ebar0n/d-packagebackend:dev')
-        local('docker build -t ebar0n/d-packagebackend:pro -f Dockerfile-Production .')
-        local('docker push ebar0n/d-packagebackend:pro')
-        local('docker tag ebar0n/d-packagebackend:pro ebar0n/d-packagebackend:latest'.format(BRANCH))
-        local('docker push ebar0n/d-packagebackend:latest')
+        with settings(warn_only=True):
+            change_dockerfile = local('git log --name-only -5 | grep "Dockerfile" -c', capture=True)
+            change_requirements = local('git log --name-only -5 | grep "requirements" -c', capture=True)
+            if change_dockerfile != '0' or change_requirements != '0':
+                local('docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .')
+                local('docker push ebar0n/d-packagebackend:dev')
+                local('docker build -t ebar0n/d-packagebackend:pro -f Dockerfile-Production .')
+                local('docker push ebar0n/d-packagebackend:pro')
+                local('docker tag ebar0n/d-packagebackend:pro ebar0n/d-packagebackend:latest'.format(BRANCH))
+                local('docker push ebar0n/d-packagebackend:latest')
     deploy(branch=branch, yml='-f docker-compose-production.yml')
 
 

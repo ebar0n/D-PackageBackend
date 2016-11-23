@@ -74,8 +74,7 @@ target/
 .python-version
 
 # celery beat schedule file
-api/celerybeat-schedule.db
-api/celerybeat.pid
+api/celerybeat*
 
 # dotenv
 .env
