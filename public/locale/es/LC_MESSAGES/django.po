@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-22 05:36+0000\n"
+"POT-Creation-Date: 2016-11-23 04:54+0000\n"
 "PO-Revision-Date: 2016-03-10 15:40+GMT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,8 +140,42 @@ msgstr "métrica"
 msgid "metrics"
 msgstr "métricas"
 
+msgid ""
+"You need to activate your account first. An email was sent to your inbox "
+"with the activation link"
+msgstr ""
+"Debe activar su cuenta primero. Se envió un correo electrónico a tu bandeja "
+"de entrada con el enlace de activación"
+
+msgid "Username/password combination invalid."
+msgstr "Combinación de nombre de usuario / contraseña no válida."
+
+msgid "User does not exist."
+msgstr "El usuario no existe."
+
+msgid "We already sent a link to reset the password."
+msgstr "Ya hemos enviado un enlace para restablecer la contraseña."
+
+msgid "Reset password"
+msgstr "Restablecer la contraseña"
+
+msgid "Token does not match with the user."
+msgstr "Token no coincide con el usuario."
+
+msgid "The token has already expired, please request a new one."
+msgstr "El token ya ha caducado, solicite uno nuevo."
+
+msgid "Current password does not match."
+msgstr "La contraseña actual no coincide."
+
 msgid "Users"
 msgstr "Usuarios"
+
+msgid "The telephone number must be 11 numbers long"
+msgstr "El número de teléfono debe tener 11 números de largo"
+
+msgid "email"
+msgstr "correo electrónico"
 
 msgid "check mail"
 msgstr "correo chekeado"
@@ -160,6 +194,27 @@ msgstr "teléfono"
 
 msgid "clients"
 msgstr "clientes"
+
+msgid "driver's license"
+msgstr "licencia de conducir"
+
+msgid "photo"
+msgstr "foto"
+
+msgid "birthdate"
+msgstr "fecha de nacimiento"
+
+msgid "address"
+msgstr "dirección"
+
+msgid "vehicle"
+msgstr "vehículo"
+
+msgid "identity verified"
+msgstr "identidad verificada"
+
+msgid "balance"
+msgstr "saldo"
 
 msgid "last location point"
 msgstr "último punto de ubicación"
@@ -205,6 +260,3 @@ msgstr "modelo"
 
 msgid "category"
 msgstr "categoria"
-
-msgid "vehicle"
-msgstr "vehículo"

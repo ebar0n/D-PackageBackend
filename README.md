@@ -64,6 +64,14 @@
 
         docker-compose run --rm -e TEST=true api py.test
 
+### Generate image by models
+
+Using graph_models by django extensions all models:
+
+```shell
+docker-compose run --rm --no-deps api python manage.py graph_models -a -g -o /srv/www/public/resources/models/all.png
+```
+
 ### Run tests to style
 
 1. Run tests isort

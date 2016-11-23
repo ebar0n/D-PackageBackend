@@ -9,10 +9,10 @@ from django.template.loader import get_template
 @app.task(name='send_mail')
 def send_mail(recipient_list, subject, template_name, data):
     """
-    Just send an email with Sparkpost (Sparkpost Template)
+    Just send an email
 
-    :param subject: str
     :param recipient_list: list
+    :param subject: str
     :param template_name: str
     :param data: dict
     :return:

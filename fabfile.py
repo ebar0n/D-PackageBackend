@@ -126,8 +126,8 @@ def deploy_production(branch='master'):
     local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
     with cd(HOME_DIRECTORY):
         with settings(warn_only=True):
-            change_dockerfile = local('git log --name-only -5 | grep "Dockerfile" -c', capture=True)
-            change_requirements = local('git log --name-only -5 | grep "requirements" -c', capture=True)
+            change_dockerfile = local('git log --name-only -10 | grep "Dockerfile" -c', capture=True)
+            change_requirements = local('git log --name-only -10 | grep "requirements" -c', capture=True)
             if change_dockerfile != '0' or change_requirements != '0':
                 local('docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .')
                 local('docker push ebar0n/d-packagebackend:dev')
@@ -160,8 +160,8 @@ def ci_test():
 
     with cd(HOME_DIRECTORY):
         with settings(warn_only=True):
-            change_dockerfile = local('git log --name-only -5 | grep "Dockerfile" -c', capture=True)
-            change_requirements = local('git log --name-only -5 | grep "requirements" -c', capture=True)
+            change_dockerfile = local('git log --name-only -10 | grep "Dockerfile" -c', capture=True)
+            change_requirements = local('git log --name-only -10 | grep "requirements" -c', capture=True)
             if change_dockerfile != '0' or change_requirements != '0':
                 local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
                 local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
