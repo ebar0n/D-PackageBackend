@@ -2,6 +2,7 @@ import datetime
 import uuid
 
 from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from rest_framework import permissions, status, views, viewsets
@@ -16,7 +17,6 @@ from sw_users.serializers import (
     ResetPasswordChangeSerializer, ServiceAccountSerializer, UserAccountSerializer,
 )
 from utils.tasks.emails import send_mail
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class ClientAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):

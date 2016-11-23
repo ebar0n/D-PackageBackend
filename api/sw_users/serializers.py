@@ -16,12 +16,6 @@ class UserAccountSerializer(serializers.ModelSerializer):
         )
         extra_kwargs = {'password': {'write_only': True}}
 
-    def validate(self, data):
-        if len(data['password']) < 8:
-            raise serializers.ValidationError(
-                {'password': 'Contrase#a debe tener una longitud minima de 8 caracteres'})
-        return data
-
 
 class ClientAccountSerializer(serializers.ModelSerializer):
     """

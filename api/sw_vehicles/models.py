@@ -1,8 +1,9 @@
 from colorful.fields import RGBColorField
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import IntegerRangeField
-from django.utils.translation import ugettext as _
 from django.core.validators import RegexValidator
+from django.utils.translation import ugettext as _
+
 plate_validator = RegexValidator(r'^.{7}$', "El numero de placa debe ser de 7 caracteres")
 
 

@@ -2,10 +2,12 @@ import uuid
 
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
+from django.core.validators import MaxValueValidator, RegexValidator
 from django.utils.translation import ugettext as _
-from django.core.validators import MaxValueValidator
-from django.core.validators import RegexValidator
-phone_validator = RegexValidator(r'^\d{11}$', "El numero telefonico tiene que tener una longitud de 11 numeros")
+
+phone_validator = RegexValidator(
+    r'^\d{11}$', _('The telephone number must be 11 numbers long')
+)
 
 
 class UserAccount(AbstractUser):
@@ -84,16 +86,16 @@ class ServiceAccount(models.Model):
     **Atributos db:**
     """
     identity_card = models.PositiveIntegerField(
-        verbose_name='Cedula de identidad', validators=[MaxValueValidator(999999999)])
-    driver_license = models.ImageField(verbose_name='Licencia de conducir', upload_to='license', blank=True)
+        verbose_name=_('identity card'), validators=[MaxValueValidator(999999999)])
+    driver_license = models.ImageField(verbose_name=_('driver\'s license'), upload_to='license', blank=True)
     phone = models.CharField(verbose_name=_('phone'), max_length=11, validators=[phone_validator])
-    photo = models.ImageField(verbose_name='Foto', upload_to='servicePhoto', blank=True)
-    birthdate = models.DateField(verbose_name='Fecha de nacimiento')
-    address = models.CharField(verbose_name='Dirección', max_length=100)
-    vehicle = models.OneToOneField('sw_vehicles.Vehicle', verbose_name='Vehículo')
-    identity_check = models.BooleanField(verbose_name='Identidad verificada', default=False)
-    bankaccount = models.OneToOneField('sw_payments.BankAccount', verbose_name='Cuenta bancaria', null=True)
-    balance = models.DecimalField(verbose_name='Saldo', max_digits=6, decimal_places=4, default=0)
+    photo = models.ImageField(verbose_name=_('photo'), upload_to='servicePhoto', blank=True)
+    birthdate = models.DateField(verbose_name=_('birthdate'))
+    address = models.CharField(verbose_name=_('address'), max_length=100)
+    vehicle = models.OneToOneField('sw_vehicles.Vehicle', verbose_name=_('vehicle'))
+    identity_check = models.BooleanField(verbose_name=_('identity verified'), default=False)
+    bankaccount = models.OneToOneField('sw_payments.BankAccount', verbose_name=_('bank account'), null=True)
+    balance = models.DecimalField(verbose_name=_('balance'), max_digits=6, decimal_places=4, default=0)
     last_location_point = models.PointField(verbose_name=_('last location point'), null=True, blank=True)
     last_location_date = models.DateTimeField(verbose_name=_('last location date'), blank=True, null=True)
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, editable=False)
