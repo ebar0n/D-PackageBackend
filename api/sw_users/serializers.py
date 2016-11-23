@@ -12,7 +12,7 @@ class UserAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
         fields = (
-            'username', 'first_name', 'last_name', 'email', 'password', 'date_join'
+            'username', 'first_name', 'last_name', 'email', 'password'
         )
         extra_kwargs = {'password': {'write_only': True}}
 
@@ -74,4 +74,14 @@ class LoginSerializer(serializers.Serializer):
     Login Serializer
     """
     username = serializers.CharField(max_length=20)
+    password = serializers.CharField(max_length=128)
+
+
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class ResetPasswordChangeSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    token = serializers.CharField(max_length=40)
     password = serializers.CharField(max_length=128)

@@ -44,6 +44,12 @@ class UserAccount(AbstractUser):
         elif self.service_id:
             return self.service
 
+    def get_full_name(self):
+        return '{} {}'.format(
+            self.first_name,
+            self.last_name
+        )
+
 
 class ClientAccount(models.Model):
     """
