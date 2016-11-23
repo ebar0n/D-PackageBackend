@@ -1,6 +1,6 @@
 import os
 
-from fabric.api import cd, env, local
+from fabric.api import cd, env, local, settings
 
 LOCAL = any(['deploy_dev' in task for task in env.tasks])
 if LOCAL:
@@ -155,9 +155,13 @@ def ci_test():
     local('docker login -u {} -p {}'.format(DOCKER_LOGIN, DOCKER_PASSWORD))
 
     with cd(HOME_DIRECTORY):
-        local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
-        local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
-        local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev'.format(BRANCH))
+        with settings(warn_only=True):
+            change_dockerfile = local('git log --name-only -5 | grep "Dockerfile" -c', capture=True)
+            change_requirements = local('git log --name-only -5 | grep "requirements" -c', capture=True)
+            if change_dockerfile != '0' or change_requirements != '0':
+                local('docker build -t ebar0n/d-packagebackend:{} -f Dockerfile-Development .'.format(BRANCH))
+                local('docker push ebar0n/d-packagebackend:{}'.format(BRANCH))
+                local('docker tag ebar0n/d-packagebackend:{} ebar0n/d-packagebackend:dev'.format(BRANCH))
 
     with cd(HOME_DIRECTORY):
         local('docker-compose run --rm -e TEST=true api py.test')
