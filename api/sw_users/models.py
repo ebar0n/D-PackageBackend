@@ -3,6 +3,9 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext as _
+from django.core.validators import MaxValueValidator
+from django.core.validators import RegexValidator
+phone_validator = RegexValidator(r'^\d{11}$', "El numero telefonico tiene que tener una longitud de 11 numeros")
 
 
 class UserAccount(AbstractUser):
@@ -29,6 +32,7 @@ class UserAccount(AbstractUser):
         verbose_name=_('service provider'),
         null=True, editable=False
     )
+    email = models.EmailField(verbose_name=_('email'), unique=True)
     check_mail = models.BooleanField(verbose_name=_('check mail'), default=False)
     stripe_customer = models.CharField(verbose_name=_('stripe, customer ID'), max_length=64, blank=True)
     token = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -37,6 +41,10 @@ class UserAccount(AbstractUser):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+
+    def save(self, *args, **kwargs):
+        self.username = self.email
+        super(UserAccount, self).save(*args, **kwargs)
 
     def get_account(self):
         if self.client_id:
@@ -61,7 +69,7 @@ class ClientAccount(models.Model):
         - updated_at (DateTimeField): Fecha de actualización del registro
     """
 
-    phone = models.CharField(verbose_name=_('phone'), max_length=11)
+    phone = models.CharField(verbose_name=_('phone'), max_length=11, validators=[phone_validator])
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(verbose_name=_('updated at'), auto_now=True, editable=False)
 
@@ -75,9 +83,10 @@ class ServiceAccount(models.Model):
     ServiceAccount: Cuenta para prestadores de servicio
     **Atributos db:**
     """
-    identity_card = models.CharField(verbose_name='Cedula de identidad', max_length=8)
-    driver_license = models.CharField(verbose_name='Licencia de conducir', max_length=20)
-    phone = models.CharField(verbose_name='Telefóno', max_length=11)
+    identity_card = models.PositiveIntegerField(
+        verbose_name='Cedula de identidad', validators=[MaxValueValidator(999999999)])
+    driver_license = models.ImageField(verbose_name='Licencia de conducir', upload_to='license', blank=True)
+    phone = models.CharField(verbose_name=_('phone'), max_length=11, validators=[phone_validator])
     photo = models.ImageField(verbose_name='Foto', upload_to='servicePhoto', blank=True)
     birthdate = models.DateField(verbose_name='Fecha de nacimiento')
     address = models.CharField(verbose_name='Dirección', max_length=100)

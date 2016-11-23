@@ -2,6 +2,8 @@ from colorful.fields import RGBColorField
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import IntegerRangeField
 from django.utils.translation import ugettext as _
+from django.core.validators import RegexValidator
+plate_validator = RegexValidator(r'^.{7}$', "El numero de placa debe ser de 7 caracteres")
 
 
 class PackageType(models.Model):
@@ -58,7 +60,7 @@ class Model(models.Model):
 
 class Vehicle(models.Model):
 
-    license_plate = models.CharField(verbose_name=_('license plate'), max_length=100)
+    license_plate = models.CharField(verbose_name=_('license plate'), max_length=7, validators=[plate_validator])
     model = models.ForeignKey('Model', verbose_name=_('model'))
     category = models.ForeignKey('VehicleCategory', verbose_name=_('category'))
     color = RGBColorField()

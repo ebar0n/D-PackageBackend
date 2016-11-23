@@ -13,6 +13,7 @@ from sw_users.serializers import (
     ServiceAccountSerializer, UserAccountSerializer,
 )
 from utils.tasks.emails import send_mail
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class ClientAccountViewSet(viewsets.ModelViewSet):
@@ -52,13 +53,13 @@ class LoginView(views.APIView):
         if user:
             if user.is_active:
                 login(request, user)
-                token = Token.objects.create(user=user)
+                token = Token.objects.get_or_create(user=user)
                 if user.client:
                     serialized_account = ClientAccountSerializer(user.client)
                 else:
                     serialized_account = ServiceAccountSerializer(user.service)
                 data = serialized_account.data
-                data['token'] = token.key
+                data['token'] = token[0].key
                 return Response(data)
             else:
                 return Response({
@@ -83,7 +84,11 @@ class LogoutView(views.APIView):
         """
         Unauthenticated the user
         """
-        logout(request)
+        try:
+            request.user.auth_token.delete()
+        except ObjectDoesNotExist:
+            logout(request)
+
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 
