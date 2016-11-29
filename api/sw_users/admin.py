@@ -20,7 +20,7 @@ class ServiceAdmin(admin.OSMGeoAdmin):
     list_editable = ('identity_check',)
     list_filter = ('identity_check',)
     readonly_fields = ('created_at', 'updated_at')
-    search_fields = ('useraccount__first_name', 'useraccount__last_name', 'useraccount__username' , 'identity_card',)
+    search_fields = ('useraccount__first_name', 'useraccount__last_name', 'useraccount__username', 'identity_card',)
 
     def get_full_name(self, obj):
         return '{}'.format(obj.useraccount.get_full_name())
