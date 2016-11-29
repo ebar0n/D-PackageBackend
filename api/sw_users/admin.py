@@ -1,6 +1,6 @@
 from django.contrib.gis import admin
-from sw_users import models
 from django.utils.translation import ugettext as _
+from sw_users import models
 
 
 class AccountInline(admin.StackedInline):
@@ -18,6 +18,7 @@ class ServiceAdmin(admin.OSMGeoAdmin):
     inlines = (AccountInline,)
     list_display = ('get_full_name', 'get_username', 'identity_card', 'phone', 'identity_check')
     list_editable = ('identity_check',)
+    list_filter = ('identity_check',)
     readonly_fields = ('created_at', 'updated_at')
     search_fields = ('useraccount__first_name', 'useraccount__last_name', 'useraccount__username' , 'identity_card',)
 
