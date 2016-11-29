@@ -11,6 +11,18 @@ class AccountInline(admin.StackedInline):
 @admin.register(models.ClientAccount)
 class ClientAdmin(admin.ModelAdmin):
     inlines = (AccountInline,)
+    list_display = ('get_full_name', 'get_username', 'phone')
+    readonly_fields = ('created_at', 'updated_at')
+    search_fields = ('useraccount__first_name', 'useraccount__last_name', 'useraccount__username',)
+
+    def get_full_name(self, obj):
+        return '{}'.format(obj.useraccount.get_full_name())
+
+    def get_username(self, obj):
+        return '{}'.format(obj.useraccount.username)
+
+    get_full_name.short_description = _('full Name')
+    get_username.short_description = _('username')
 
 
 @admin.register(models.ServiceAccount)
