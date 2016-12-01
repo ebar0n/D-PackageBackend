@@ -59,10 +59,13 @@ class LoginView(views.APIView):
                 token = Token.objects.get_or_create(user=user)
                 if user.client:
                     serialized_account = ClientAccountSerializer(user.client)
+                    type = 'client'
                 else:
                     serialized_account = ServiceAccountSerializer(user.service)
+                    type = 'service'
                 data = serialized_account.data
                 data['token'] = token[0].key
+                data['type'] = type
                 return Response(data)
             else:
                 return Response({
