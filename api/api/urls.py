@@ -6,6 +6,7 @@ from django.contrib.gis import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('sw_users.urls')),
+    url(r'^api/v1/', include('sw_vehicles.urls')),
 ]
 
 if settings.DOCS:
