@@ -8,3 +8,9 @@ class ShipmentTypeAdmin(admin.ModelAdmin):
     list_filter = ('price',)
     readonly_fields = ('created_at', 'updated_at')
     search_fields = ('name', 'codename')
+
+
+@admin.register(models.Status)
+class StatusTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'codename')
+    search_fields = ('name', 'codename')

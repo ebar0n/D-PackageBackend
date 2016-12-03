@@ -93,7 +93,7 @@ msgid "service provider"
 msgstr "proveedor de servicio"
 
 msgid "package type"
-msgstr "yipo de paquete"
+msgstr "tipo de paquete"
 
 msgid "photo 1"
 msgstr "foto 1"
