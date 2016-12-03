@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django import views
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.gis import admin
@@ -15,4 +16,5 @@ if settings.DOCS:
     swagger_view = get_swagger_view(title='API')
     urlpatterns += [
         url(r'^$', swagger_view),
+        url(r'^media/(.*)$', views.static.serve, {'document_root': settings.MEDIA_ROOT}),
     ]
