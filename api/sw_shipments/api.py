@@ -1,10 +1,10 @@
 from django.utils.translation import ugettext as _
-from rest_framework import status, viewsets
+from rest_framework import generics, status, viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from sw_shipments.models import Shipment, Status
 from sw_shipments.serializers import ConfirmShipmentSerializer, ShipmentSerializer
-from sw_users import mixins
+from sw_users import mixins as mixins
 
 
 class ShipmentViewSet(mixins.ClientCRUDPermissions, viewsets.ModelViewSet):
@@ -38,3 +38,8 @@ class ShipmentViewSet(mixins.ClientCRUDPermissions, viewsets.ModelViewSet):
         shipment.save(update_fields=['status'])
 
         return Response({}, status.HTTP_200_OK)
+
+
+class InboxShipmentView(generics.ListAPIView):
+    queryset = Shipment.objects.filter(status__codename='status_requested')
+    serializer_class = ShipmentSerializer
