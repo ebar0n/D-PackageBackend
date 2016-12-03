@@ -11,10 +11,10 @@ class ShipmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shipment
         fields = (
-            'client', 'shipmenttype', 'packagetype', 'photo1', 'photo2', 'photo3', 'tags', 'receiver', 'origin',
+            'id', 'client', 'shipmenttype', 'packagetype', 'photo1', 'photo2', 'photo3', 'tags', 'receiver', 'origin',
             'destination', 'insured', 'price'
         )
-        read_only_fields = ('client', 'price')
+        read_only_fields = ('id', 'client', 'price')
 
     def create(self, validated_data):
         validated_data['client'] = self.context['request'].user.client
@@ -24,3 +24,11 @@ class ShipmentSerializer(serializers.ModelSerializer):
         shipment.price = calculate_price(shipment)
         shipment.save(update_fields=['price', 'updated_at'])
         return shipment
+
+
+class ConfirmShipmentSerializer(serializers.Serializer):
+    """
+        ConfirmShipment Serializer
+    """
+    id = serializers.IntegerField()
+    confirm = serializers.BooleanField()
