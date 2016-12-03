@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from sw_shipments.models import Shipment, Status
-from sw_users.models import ClientAccount
 from utils.functions_geos import calculate_price
 
 
