@@ -18,8 +18,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
         read_only_fields = ('client', 'price')
 
     def create(self, validated_data):
-        client = ClientAccount.objects.get(useraccount__username=self.context['request'].user.username)
-        validated_data['client'] = client
+        validated_data['client'] = self.context['request'].user.client
         validated_data['status'] = Status.objects.get(codename='status_pre_requested')
 
         shipment = Shipment.objects.create(**validated_data)

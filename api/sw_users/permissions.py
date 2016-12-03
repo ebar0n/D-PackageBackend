@@ -36,7 +36,7 @@ class IsClientAccountOwner(permissions.BasePermission):
         if request.user.is_authenticated():
             if request.user.client:
                 return True
-            return False
+            return request.user.pk == account.pk
         return False
 
 
@@ -55,5 +55,5 @@ class IsServiceAccountOwner(permissions.BasePermission):
         if request.user.is_authenticated():
             if request.user.service:
                 return True
-            return False
+            return request.user.pk == account.pk
         return False

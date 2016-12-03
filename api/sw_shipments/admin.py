@@ -12,4 +12,5 @@ class ShipmentTypeAdmin(admin.ModelAdmin):
 
 @admin.register(models.Status)
 class StatusTypeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'codename')
+    search_fields = ('name', 'codename')
