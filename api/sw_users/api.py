@@ -59,13 +59,16 @@ class LoginView(views.APIView):
                 token = Token.objects.get_or_create(user=user)
                 if user.client:
                     serialized_account = ClientAccountSerializer(user.client)
-                    type = 'client'
-                else:
+                    _type = 'client'
+                elif user.service:
                     serialized_account = ServiceAccountSerializer(user.service)
-                    type = 'service'
+                    _type = 'service'
+                else:
+                    serialized_account = UserAccountSerializer(user)
+                    _type = 'admin'
                 data = serialized_account.data
                 data['token'] = token[0].key
-                data['type'] = type
+                data['type'] = _type
                 return Response(data)
             else:
                 return Response({
@@ -204,4 +207,6 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
         user.set_password(data.get('new_password'))
         user.save(update_fields=['password'])
 
+        # Force authentication with new credentials
+        login(request, user)
         return Response({}, status.HTTP_204_NO_CONTENT)
