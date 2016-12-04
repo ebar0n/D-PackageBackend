@@ -56,6 +56,10 @@ def build(branch='master', yml=''):
         run('docker-compose {} pull'.format(yml))
 
 
+def docker_build():
+    local('docker build -t ebar0n/d-packagebackend:dev -f Dockerfile-Development .')
+
+
 def load(branch='master', yml=''):
     """
     Load by branch

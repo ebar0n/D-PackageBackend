@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-29 21:25+0000\n"
+"POT-Creation-Date: 2016-12-04 03:13+0000\n"
 "PO-Revision-Date: 2016-03-10 15:40+GMT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,8 +62,11 @@ msgstr "cuenta bancaria"
 msgid "bank accounts"
 msgstr "cuentas bancarias"
 
+msgid "Shipment does not exist."
+msgstr "El envío no existe."
+
 msgid "Shipments"
-msgstr "envíos"
+msgstr "Envíos"
 
 msgid "description"
 msgstr "descripción"
@@ -230,6 +233,55 @@ msgstr "última fecha de ubicación"
 
 msgid "services provider"
 msgstr "proveedor de servicios"
+
+msgid "Invalid request error."
+msgstr "Ocurrió un error al enviar la petición al sevidor."
+
+msgid "Failure to connect to Stripe's API."
+msgstr "La conexión al servidor de Stripe falló."
+
+msgid "Failure to properly authenticate yourself in the request."
+msgstr "Ocurrió un fallo en la autenticación."
+
+msgid "Too many requests hit the API too quickly."
+msgstr "Demasiadas peticiones al servidor al mismo tiempo."
+
+msgid "Card can't be charged for some reason."
+msgstr "La tarjeta no puede ser cobrada por alguna razón."
+
+msgid "Temporary problem with Stripe's servers"
+msgstr "Problemas temporales con los servidores de Stripe"
+
+msgid "The card number is incorrect."
+msgstr "El número de la tarjeta es incorrecto."
+
+msgid "The card number is not a valid credit card number."
+msgstr ""
+"El número de la tarjeta no es un número válido para una tarjeta de crédito."
+
+msgid "The card's expiration month is invalid."
+msgstr "El mes de expiración de la tarjeta es inválido."
+
+msgid "The card's expiration year is invalid."
+msgstr "El año de expiración de la tarjeta es inválido."
+
+msgid "The card's security code is invalid."
+msgstr "El código de seguridad de la tarjeta es inválido."
+
+msgid "The card has expired."
+msgstr "La tarjeta ha expirado."
+
+msgid "The card's security code is incorrect."
+msgstr "El código de seguridad de la tarjeta es incorrecto."
+
+msgid "The card's zip code failed validation."
+msgstr "El código zip de la tarjeta falló la validación."
+
+msgid "The card was declined."
+msgstr "La tarjeta fue rechazada."
+
+msgid "Wrong Stripe Token. Stripe Token can't be None."
+msgstr "Token Stripe Incorrecto. El token de Stripe no puede ser nulo"
 
 msgid "vehicles"
 msgstr "vehículos"

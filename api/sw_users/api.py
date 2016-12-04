@@ -9,33 +9,29 @@ from rest_framework import permissions, status, views, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
-from sw_users import mixins
+from sw_users import mixins, serializers, stripe
 from sw_users.models import ClientAccount, ServiceAccount, UserAccount
 from sw_users.permissions import IsAdminOrAccountOwner
-from sw_users.serializers import (
-    ChangePasswordSerializer, ClientAccountSerializer, ForgotPasswordSerializer, LoginSerializer,
-    ResetPasswordChangeSerializer, ServiceAccountSerializer, UserAccountSerializer,
-)
 from utils.tasks.emails import send_mail
 
 
 class ClientAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
     lookup_field = 'useraccount__username'
     queryset = ClientAccount.objects.all()
-    serializer_class = ClientAccountSerializer
+    serializer_class = serializers.ClientAccountSerializer
 
 
 class ServiceAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
     lookup_field = 'useraccount__username'
     queryset = ServiceAccount.objects.all()
-    serializer_class = ServiceAccountSerializer
+    serializer_class = serializers.ServiceAccountSerializer
 
 
 class LoginView(views.APIView):
     """
     Login View
     """
-    serializer_class = LoginSerializer
+    serializer_class = serializers.LoginSerializer
 
     def post(self, request, format=None):
         """
@@ -58,13 +54,13 @@ class LoginView(views.APIView):
                 login(request, user)
                 token = Token.objects.get_or_create(user=user)
                 if user.client:
-                    serialized_account = ClientAccountSerializer(user.client)
+                    serialized_account = serializers.ClientAccountSerializer(user.client)
                     _type = 'client'
                 elif user.service:
-                    serialized_account = ServiceAccountSerializer(user.service)
+                    serialized_account = serializers.ServiceAccountSerializer(user.service)
                     _type = 'service'
                 else:
-                    serialized_account = UserAccountSerializer(user)
+                    serialized_account = serializers.UserAccountSerializer(user)
                     _type = 'admin'
                 data = serialized_account.data
                 data['token'] = token[0].key
@@ -103,11 +99,11 @@ class LogoutView(views.APIView):
 
 class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelViewSet):
     queryset = UserAccount.objects.all()
-    serializer_class = UserAccountSerializer
+    serializer_class = serializers.UserAccountSerializer
 
     @list_route(methods=['post'], permission_classes=[permissions.AllowAny])
     def forgot_password(self, request, *args, **kwargs):
-        serializer = ForgotPasswordSerializer(
+        serializer = serializers.ForgotPasswordSerializer(
             data=request.data
         )
         if not serializer.is_valid():
@@ -153,7 +149,7 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
 
     @list_route(methods=['post'], permission_classes=[permissions.AllowAny])
     def reset_password(self, request, *args, **kwargs):
-        serializer = ResetPasswordChangeSerializer(
+        serializer = serializers.ResetPasswordChangeSerializer(
             data=request.data
         )
         if not serializer.is_valid():
@@ -196,7 +192,7 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
 
         """
         user = self.get_object()
-        serializer = ChangePasswordSerializer(
+        serializer = serializers.ChangePasswordSerializer(
             data=request.data
         )
         if not serializer.is_valid():
@@ -215,3 +211,79 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
         # Force authentication with new credentials
         login(request, user)
         return Response({}, status.HTTP_204_NO_CONTENT)
+
+
+class CardViewSet(viewsets.ViewSet):
+
+    serializer_class = serializers.CardSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        data = request.data
+        serializer_in = serializers.CardCreateSerializer(data=data)
+        if serializer_in.is_valid():
+            card, response_message = stripe.card_create(user, serializer_in.data.get('stripe_token'))
+            if card:
+                serializer_out = self.serializer_class(card)
+                return Response(serializer_out.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(response_message, status=status.HTTP_502_BAD_GATEWAY)
+        else:
+            return Response(serializer_in.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request, *args, **kwargs):
+        user = request.user
+        data = request.GET
+        cards, response_message = stripe.card_list(
+            user=user, starting_after=data.get('starting_after', None)
+        )
+        if cards:
+            default, response_message = stripe.card_default(
+                user=user, card_id=None
+            )
+            if default:
+                serializer_list = self.serializer_class(cards.get('data', []), many=True)
+                serializer_default = serializers.CardDefaultSerializer(default)
+                data = {
+                    'cards': serializer_list.data,
+                    'default': serializer_default.data
+                }
+                return Response(data, status=status.HTTP_200_OK)
+            else:
+                return Response(response_message, status=status.HTTP_502_BAD_GATEWAY)
+        else:
+            return Response(response_message, status=status.HTTP_502_BAD_GATEWAY)
+
+    def destroy(self, request, pk=None):
+        user = request.user
+        success, response_message = stripe.card_delete(
+            user=user, card_id=pk
+        )
+        if success:
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(response_message, status=status.HTTP_502_BAD_GATEWAY)
+
+    def update(self, request, pk):
+        user = request.user
+        card, response_message = stripe.card_default(
+            user=user, card_id=pk
+        )
+        if card:
+            serializer = serializers.CardDefaultSerializer(card)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(response_message, status=status.HTTP_502_BAD_GATEWAY)
+
+    @list_route(methods=['GET'])
+    def default(self, request):
+        user = request.user
+        card, response_message = stripe.card_default(
+            user=user, card_id=None
+        )
+        if card:
+            serializer = serializers.CardDefaultSerializer(card)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(response_message, status=status.HTTP_502_BAD_GATEWAY)
