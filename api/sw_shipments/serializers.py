@@ -11,10 +11,10 @@ class ShipmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shipment
         fields = (
-            'id', 'client', 'shipmenttype', 'packagetype', 'photo1', 'photo2', 'photo3', 'tags', 'receiver', 'origin',
-            'destination', 'insured', 'price'
+            'id', 'client', 'service', 'shipmenttype', 'packagetype', 'photo1', 'photo2', 'photo3', 'tags',
+            'receiver', 'origin', 'destination', 'insured', 'price', 'status'
         )
-        read_only_fields = ('id', 'client', 'price')
+        read_only_fields = ('id', 'client', 'service', 'price', 'status')
 
     def create(self, validated_data):
         validated_data['client'] = self.context['request'].user.client
@@ -32,3 +32,19 @@ class ConfirmShipmentSerializer(serializers.Serializer):
     """
     id = serializers.IntegerField()
     confirm = serializers.BooleanField()
+
+
+class AcceptShipmentSerializer(serializers.Serializer):
+    """
+        AcceptShipment Serializer
+    """
+    id = serializers.IntegerField()
+    service = serializers.IntegerField()
+
+
+class UpdateShipmentSerializer(serializers.Serializer):
+    """
+        UpdateShipment Serializer
+    """
+    id = serializers.IntegerField()
+    status = serializers.IntegerField()
