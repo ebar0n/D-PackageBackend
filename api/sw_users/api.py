@@ -16,13 +16,11 @@ from utils.tasks.emails import send_mail
 
 
 class ClientAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
-    lookup_field = 'useraccount__username'
     queryset = ClientAccount.objects.all()
     serializer_class = serializers.ClientAccountSerializer
 
 
 class ServiceAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
-    lookup_field = 'useraccount__username'
     queryset = ServiceAccount.objects.all()
     serializer_class = serializers.ServiceAccountSerializer
 
