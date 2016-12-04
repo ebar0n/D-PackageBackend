@@ -4,7 +4,7 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from sw_shipments.models import Shipment, Status
 from sw_shipments.serializers import (
-    AcceptShipmentSerializer, ConfirmShipmentSerializer, ShipmentSerializer, UpdateShipmentSerializer
+    AcceptShipmentSerializer, ConfirmShipmentSerializer, ShipmentSerializer, UpdateShipmentSerializer,
 )
 from sw_users.models import ServiceAccount
 
