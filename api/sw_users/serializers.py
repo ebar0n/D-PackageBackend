@@ -95,3 +95,31 @@ class ChangePasswordSerializer(serializers.Serializer):
     """
     old_password = serializers.CharField(max_length=128)
     new_password = serializers.CharField(min_length=8, max_length=128)
+
+
+class CardCreateSerializer(serializers.Serializer):
+    """
+        Create card Serializer
+    """
+    stripe_token = serializers.CharField(max_length=100)
+
+
+class CardDefaultSerializer(serializers.Serializer):
+    """
+        Default card Serializer
+    """
+    id = serializers.CharField(max_length=50, required=False)
+
+
+class CardSerializer(serializers.Serializer):
+    """
+        Card Serializer
+    """
+    id = serializers.CharField(max_length=50)
+    cvc_check = serializers.CharField(max_length=15)
+    brand = serializers.CharField(max_length=50)
+    exp_month = serializers.IntegerField()
+    exp_year = serializers.IntegerField()
+    funding = serializers.CharField(max_length=15)
+    last4 = serializers.CharField(max_length=4)
+    name = serializers.CharField(max_length=50)

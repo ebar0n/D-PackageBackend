@@ -1,15 +1,15 @@
 from django.utils.translation import ugettext as _
-from rest_framework import generics, status, viewsets
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from sw_shipments.models import Shipment, Status
 from sw_shipments.serializers import ConfirmShipmentSerializer, ShipmentSerializer
-from sw_users import mixins as mixins
 
 
-class ShipmentViewSet(mixins.ClientCRUDPermissions, viewsets.ModelViewSet):
+class ShipmentViewSet(viewsets.ModelViewSet):
     queryset = Shipment.objects.all()
     serializer_class = ShipmentSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     @list_route(methods=['post'])
     def confirm_shipment(self, request, *args, **kwargs):
@@ -43,3 +43,4 @@ class ShipmentViewSet(mixins.ClientCRUDPermissions, viewsets.ModelViewSet):
 class InboxShipmentView(generics.ListAPIView):
     queryset = Shipment.objects.filter(status__codename='status_requested')
     serializer_class = ShipmentSerializer
+    permission_classes = (permissions.IsAuthenticated,)
