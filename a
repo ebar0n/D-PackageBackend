@@ -1,0 +1,12 @@
+[1mdiff --git a/api/sw_shipments/api.py b/api/sw_shipments/api.py[m
+[1mindex bffcc81..558008c 100644[m
+[1m--- a/api/sw_shipments/api.py[m
+[1m+++ b/api/sw_shipments/api.py[m
+[36m@@ -5,6 +5,7 @@[m [mfrom rest_framework.response import Response[m
+ from sw_shipments.models import Shipment, Status[m
+ from sw_shipments.serializers import ConfirmShipmentSerializer, ShipmentSerializer[m
+ from sw_users import mixins as mixins[m
+[32m+[m[32mfrom sw_users.permissions import IsClientAccountOwner[m
+ [m
+ [m
+ class ShipmentViewSet(mixins.ClientCRUDPermissions, viewsets.ModelViewSet):[m
