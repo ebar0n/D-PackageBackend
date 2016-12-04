@@ -118,6 +118,10 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
             user = UserAccount.objects.get(
                 email=data.get('email').lower()
             )
+            user.token = None
+            user.token_expires = None
+            user.save(update_fields=['token', 'token_expires'])
+
         except UserAccount.DoesNotExist:
             return Response({
                 'status': 'Not Found',
@@ -135,7 +139,7 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
         user.save(update_fields=['token', 'token_expires'])
 
         url = '{}/api/v1/user/reset_password/{}/{}'.format(
-            request.META['HTTP_HOST'],
+            request.META.get('HTTP_HOST', ''),
             user.email,
             user.token.hex
         )
@@ -143,7 +147,7 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
             'name': user.get_full_name(),
             'url': url,
         }
-        send_mail.run([user.email], _('Reset password'), 'reset_password.html', data)
+        send_mail.delay([user.email], _('Reset password'), 'reset_password.html', data)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
@@ -180,6 +184,7 @@ class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelVi
 
         user.set_password(data.get('password'))
         user.token_expires = None
+        user.token = None
         user.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
