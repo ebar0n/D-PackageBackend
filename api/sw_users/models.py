@@ -37,7 +37,7 @@ class UserAccount(AbstractUser):
     email = models.EmailField(verbose_name=_('email'), unique=True)
     check_mail = models.BooleanField(verbose_name=_('check mail'), default=False)
     stripe_customer = models.CharField(verbose_name=_('stripe, customer ID'), max_length=64, blank=True)
-    token = models.UUIDField(default=uuid.uuid4, editable=False)
+    token = models.UUIDField(default=uuid.uuid4, null=True, editable=False)
     token_expires = models.DateTimeField(null=True, editable=False)
 
     class Meta:

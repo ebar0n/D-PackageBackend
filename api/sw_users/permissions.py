@@ -17,7 +17,7 @@ class IsAdminOrAccountOwner(permissions.BasePermission):
         if request.user.is_authenticated():
             if request.user.is_staff:
                 return True
-            return account.username == request.user.username
+            return request.user.pk == account.pk
         return False
 
 
@@ -34,9 +34,8 @@ class IsClientAccountOwner(permissions.BasePermission):
         :return: bool
         """
         if request.user.is_authenticated():
-            if request.user.client:
+            if request.user.client_id and request.user.pk == account.pk:
                 return True
-            return request.user.pk == account.pk
         return False
 
 
@@ -53,7 +52,6 @@ class IsServiceAccountOwner(permissions.BasePermission):
         :return: bool
         """
         if request.user.is_authenticated():
-            if request.user.service:
+            if request.user.service_id and request.user.pk == account.pk:
                 return True
-            return request.user.pk == account.pk
         return False

@@ -42,7 +42,7 @@ class ClientCRUDPermissions(object):
             return [IsClientAccountOwner()]
 
         if self.action == 'list':
-            return [permissions.IsAdminUser()]
+            return [IsClientAccountOwner]
 
         return [permission() for permission in self.permission_classes]
 
@@ -63,6 +63,6 @@ class ServiceCRUDPermissions(object):
             return [IsServiceAccountOwner()]
 
         if self.action == 'list':
-            return [permissions.IsAdminUser()]
+            return [IsServiceAccountOwner]
 
         return [permission() for permission in self.permission_classes]
