@@ -88,7 +88,7 @@ def get_customer(user, stripe_token=None, create_without_card=False):
     else:
         if stripe_token or create_without_card:
             customer = stripe.Customer.create(
-                description=user.name,
+                description=user.get_full_name(),
                 email=user.email,
                 source=stripe_token
             )

@@ -1,9 +1,12 @@
 from django.conf.urls import include, url
 from rest_framework import routers
-from sw_users.api import ClientAccountViewSet, LoginView, LogoutView, ServiceAccountViewSet, UserAccountViewSet
+from sw_users.api import (
+    CardViewSet, ClientAccountViewSet, LoginView, LogoutView, ServiceAccountViewSet, UserAccountViewSet,
+)
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.SimpleRouter()
+router.register(r'card', CardViewSet, 'cards')
 router.register(r'client', ClientAccountViewSet)
 router.register(r'service', ServiceAccountViewSet)
 router.register(r'user', UserAccountViewSet)
