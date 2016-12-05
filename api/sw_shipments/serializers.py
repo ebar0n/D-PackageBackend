@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from sw_shipments.models import Shipment, Status
+from sw_users.serializers import ClientAccountSerializer, ServiceAccountSerializer
 from utils.functions_geos import calculate_price
 
 
@@ -7,6 +8,8 @@ class ShipmentSerializer(serializers.ModelSerializer):
     """
         Shipment Serializer
     """
+    client = ClientAccountSerializer()
+    service = ServiceAccountSerializer()
 
     class Meta:
         model = Shipment
