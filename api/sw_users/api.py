@@ -247,7 +247,7 @@ class CardViewSet(viewsets.ViewSet):
                 serializer_default = serializers.CardDefaultSerializer(default)
                 data = {
                     'cards': serializer_list.data,
-                    'default': serializer_default.data
+                    'card_default': serializer_default.data
                 }
                 return Response(data, status=status.HTTP_200_OK)
             else:
