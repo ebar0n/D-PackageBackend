@@ -10,17 +10,15 @@ from sw_users.models import ServiceAccount
 
 
 class ShipmentViewSet(viewsets.ModelViewSet):
-    queryset = Shipment.objects.all()
+    queryset = Shipment.objects.all().exclude(status__codename__in=['status_pre_requested', 'status_canceled'])
     serializer_class = ShipmentSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get_queryset(self):
-        queryset = self.queryset
+    def filter_queryset(self, queryset):
         if self.request.user.client:
-            queryset.filter(client=self.request.user.client)
+            queryset = queryset.filter(client=self.request.user.client)
         elif self.request.user.service:
-            queryset.filter(service=self.request.user.service)
-        queryset.exclude(status__codename__in=['status_pre_requested', 'status_canceled'])
+            queryset = queryset.filter(service=self.request.user.service)
         return queryset
 
     @list_route(methods=['post'])
