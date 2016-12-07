@@ -97,7 +97,7 @@ class LogoutView(views.APIView):
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 
-class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ReadOnlyModelViewSet):
+class UserAccountViewSet(mixins.DefaultCRUDPermissions, viewsets.ModelViewSet):
     queryset = UserAccount.objects.all()
     serializer_class = serializers.UserAccountSerializer
 
