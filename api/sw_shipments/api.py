@@ -80,7 +80,7 @@ class ShipmentViewSet(viewsets.ModelViewSet):
             }, status.HTTP_404_NOT_FOUND)
 
         try:
-            service = UserAccount.objects.get(service=data.get('service')).service
+            service = UserAccount.objects.get(service_id=data.get('service')).service
         except UserAccount.DoesNotExist:
             return Response({
                 'status': 'Not Found',
