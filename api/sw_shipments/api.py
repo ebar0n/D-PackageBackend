@@ -119,7 +119,7 @@ class ShipmentViewSet(viewsets.ModelViewSet):
             }, status.HTTP_404_NOT_FOUND)
 
         shipment.status = estatus
-        shipment.save(update_fields=['estatus'])
+        shipment.save(update_fields=['status'])
         return Response({}, status.HTTP_200_OK)
 
 
