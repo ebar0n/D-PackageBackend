@@ -6,7 +6,7 @@ from sw_shipments.models import Shipment, Status
 from sw_shipments.serializers import (
     AcceptShipmentSerializer, ConfirmShipmentSerializer, ShipmentSerializer, UpdateShipmentSerializer,
 )
-from sw_users.models import ServiceAccount
+from sw_users.models import UserAccount
 
 
 class ShipmentViewSet(viewsets.ModelViewSet):
@@ -80,8 +80,8 @@ class ShipmentViewSet(viewsets.ModelViewSet):
             }, status.HTTP_404_NOT_FOUND)
 
         try:
-            service = ServiceAccount.objects.get(pk=data.get('service'))
-        except ServiceAccount.DoesNotExist:
+            service = UserAccount.objects.get(service=data.get('service')).service
+        except UserAccount.DoesNotExist:
             return Response({
                 'status': 'Not Found',
                 'message': _('ServiceAccount does not exist.')
@@ -119,7 +119,7 @@ class ShipmentViewSet(viewsets.ModelViewSet):
             }, status.HTTP_404_NOT_FOUND)
 
         shipment.status = estatus
-        shipment.save(update_fields=['estatus'])
+        shipment.save(update_fields=['status'])
         return Response({}, status.HTTP_200_OK)
 
 

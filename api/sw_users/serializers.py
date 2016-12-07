@@ -26,7 +26,8 @@ class ClientAccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ClientAccount
-        fields = ('useraccount', 'phone')
+        fields = ('id', 'useraccount', 'phone')
+        read_only_fields = ('id',)
 
     def create(self, validated_data):
         data_user = validated_data.pop('useraccount')
@@ -51,9 +52,10 @@ class ServiceAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceAccount
         fields = (
-            'useraccount', 'phone', 'photo', 'birthdate',
+            'id', 'useraccount', 'phone', 'photo', 'birthdate',
             'address', 'identity_card', 'driver_license', 'vehicle'
         )
+        read_only_fields = ('id',)
 
     def create(self, validated_data):
         data_user = validated_data.pop('useraccount')
