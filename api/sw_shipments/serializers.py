@@ -8,8 +8,8 @@ class ShipmentSerializer(serializers.ModelSerializer):
     """
         Shipment Serializer
     """
-    client = ClientAccountSerializer()
-    service = ServiceAccountSerializer()
+    client = ClientAccountSerializer(read_only=True)
+    service = ServiceAccountSerializer(read_only=True)
 
     class Meta:
         model = Shipment
@@ -17,7 +17,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
             'id', 'client', 'service', 'shipmenttype', 'packagetype', 'photo1', 'photo2', 'photo3', 'tags',
             'receiver', 'origin', 'destination', 'insured', 'price', 'status'
         )
-        read_only_fields = ('id', 'client', 'service', 'price', 'status')
+        read_only_fields = ('id', 'price', 'status')
 
     def create(self, validated_data):
         validated_data['client'] = self.context['request'].user.client
